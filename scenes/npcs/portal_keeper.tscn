@@ -1,0 +1,118 @@
+[gd_scene load_steps=8 format=3 uid="uid://lt7qkn4ceagl"]
+
+[ext_resource type="Texture2D" uid="uid://dqxaypwrlmq1e" path="res://assets/sprites/knight.png" id="1_0ewr0"]
+[ext_resource type="Script" uid="uid://bex0hy5j45suq" path="res://scripts/npc_scripts/portal_keeper.gd" id="1_ardn6"]
+[ext_resource type="FontFile" uid="uid://c0bgh10idc3tl" path="res://assets/fonts/PixelOperator8.ttf" id="1_c60qd"]
+[ext_resource type="FontFile" uid="uid://dgcs33ctyhfl4" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="4_odsli"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ardn6"]
+atlas = ExtResource("1_0ewr0")
+region = Rect2(96, 224, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p78sk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ardn6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0ewr0"]
+size = Vector2(26, 20)
+
+[node name="PortalKeeper" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_ardn6")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -12)
+sprite_frames = SubResource("SpriteFrames_p78sk")
+
+[node name="InteractionZone" type="CollisionShape2D" parent="."]
+position = Vector2(0, -10)
+shape = SubResource("RectangleShape2D_0ewr0")
+
+[node name="NameLabel" type="Label" parent="."]
+offset_left = -43.0
+offset_top = -31.0
+offset_right = 43.0
+offset_bottom = -23.0
+theme_override_fonts/font = ExtResource("1_c60qd")
+theme_override_font_sizes/font_size = 8
+text = "Portal Keeper"
+horizontal_alignment = 1
+
+[node name="Login" type="Window" parent="."]
+oversampling_override = 1.0
+title = "Welcome back!"
+initial_position = 1
+size = Vector2i(400, 200)
+unresizable = true
+popup_window = true
+minimize_disabled = true
+maximize_disabled = true
+theme_override_fonts/title_font = ExtResource("4_odsli")
+
+[node name="CameraWindow" type="Camera2D" parent="Login"]
+position = Vector2(200, 100)
+
+[node name="NameLabel" type="Label" parent="Login/CameraWindow"]
+offset_left = -162.0
+offset_top = -68.0
+offset_right = -102.0
+offset_bottom = -45.0
+theme_override_fonts/font = ExtResource("1_c60qd")
+text = "Name"
+
+[node name="PasswordLabel" type="Label" parent="Login/CameraWindow"]
+offset_left = 24.0
+offset_top = -68.0
+offset_right = 140.0
+offset_bottom = -45.0
+theme_override_fonts/font = ExtResource("1_c60qd")
+text = "Password"
+
+[node name="NameField" type="LineEdit" parent="Login/CameraWindow"]
+offset_left = -162.0
+offset_top = -38.0
+offset_right = -12.0
+offset_bottom = -7.0
+
+[node name="PasswordField" type="LineEdit" parent="Login/CameraWindow"]
+offset_left = 24.0
+offset_top = -38.0
+offset_right = 174.0
+offset_bottom = -7.0
+secret = true
+
+[node name="LoginBtn" type="Button" parent="Login/CameraWindow"]
+offset_left = -140.0
+offset_top = 40.0
+offset_right = -40.0
+offset_bottom = 71.0
+text = "Let's go!"
+
+[node name="CloseBtn" type="Button" parent="Login/CameraWindow"]
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 140.0
+offset_bottom = 71.0
+text = "Not now"
+
+[node name="ShowPasswordBtn" type="Button" parent="Login/CameraWindow"]
+offset_left = 143.0
+offset_top = -38.0
+offset_right = 174.0
+offset_bottom = -7.0
+theme_override_fonts/font = ExtResource("4_odsli")
+text = "-"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="close_requested" from="Login" to="." method="_on_login_close_requested"]
+[connection signal="button_down" from="Login/CameraWindow/LoginBtn" to="." method="_on_login_btn_button_down"]
+[connection signal="button_down" from="Login/CameraWindow/CloseBtn" to="." method="_on_close_btn_button_down"]
+[connection signal="button_down" from="Login/CameraWindow/ShowPasswordBtn" to="." method="_on_show_password_btn_button_down"]

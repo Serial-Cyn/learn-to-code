@@ -1,0 +1,70 @@
+[gd_scene load_steps=10 format=3 uid="uid://cfr76vqdlih1m"]
+
+[ext_resource type="Texture2D" uid="uid://dqxaypwrlmq1e" path="res://assets/sprites/knight.png" id="1_d5a1k"]
+[ext_resource type="Script" uid="uid://kbxdkvqatcng" path="res://scripts/npc_scripts/librarian.gd" id="1_udqkt"]
+[ext_resource type="FontFile" uid="uid://c0bgh10idc3tl" path="res://assets/fonts/PixelOperator8.ttf" id="2_udqkt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gf5gu"]
+atlas = ExtResource("1_d5a1k")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_igoej"]
+atlas = ExtResource("1_d5a1k")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0cxkk"]
+atlas = ExtResource("1_d5a1k")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xjtwp"]
+atlas = ExtResource("1_d5a1k")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ywvjc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gf5gu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_igoej")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0cxkk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xjtwp")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aggmx"]
+size = Vector2(26, 20)
+
+[node name="Librarian" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_udqkt")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -12)
+sprite_frames = SubResource("SpriteFrames_ywvjc")
+autoplay = "default"
+
+[node name="InteractionZone" type="CollisionShape2D" parent="."]
+position = Vector2(0, -10)
+shape = SubResource("RectangleShape2D_aggmx")
+
+[node name="NameLabel" type="Label" parent="."]
+offset_left = -38.0
+offset_top = -31.0
+offset_right = 38.0
+offset_bottom = -23.0
+theme_override_fonts/font = ExtResource("2_udqkt")
+theme_override_font_sizes/font_size = 8
+text = "Librarian"
+horizontal_alignment = 1
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

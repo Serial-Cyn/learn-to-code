@@ -1,0 +1,140 @@
+[gd_scene load_steps=11 format=3 uid="uid://2x5fgvnx5kux"]
+
+[ext_resource type="Script" uid="uid://13jwthu0kg5a" path="res://scripts/npc_scripts/overseer.gd" id="1_rk8j3"]
+[ext_resource type="Texture2D" uid="uid://dqxaypwrlmq1e" path="res://assets/sprites/knight.png" id="2_dhnir"]
+[ext_resource type="FontFile" uid="uid://c0bgh10idc3tl" path="res://assets/fonts/PixelOperator8.ttf" id="3_4d22p"]
+[ext_resource type="FontFile" uid="uid://dgcs33ctyhfl4" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="4_dhnir"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gf5gu"]
+atlas = ExtResource("2_dhnir")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_igoej"]
+atlas = ExtResource("2_dhnir")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0cxkk"]
+atlas = ExtResource("2_dhnir")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xjtwp"]
+atlas = ExtResource("2_dhnir")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tscq6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gf5gu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_igoej")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0cxkk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xjtwp")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2suq5"]
+size = Vector2(26, 20)
+
+[node name="Overseer" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_rk8j3")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -12)
+sprite_frames = SubResource("SpriteFrames_tscq6")
+autoplay = "default"
+
+[node name="InteractionZone" type="CollisionShape2D" parent="."]
+position = Vector2(0, -10)
+shape = SubResource("RectangleShape2D_2suq5")
+
+[node name="NameLabel" type="Label" parent="."]
+offset_left = -38.0
+offset_top = -31.0
+offset_right = 38.0
+offset_bottom = -23.0
+theme_override_fonts/font = ExtResource("3_4d22p")
+theme_override_font_sizes/font_size = 8
+text = "Overseer"
+horizontal_alignment = 1
+
+[node name="Registration" type="Window" parent="."]
+oversampling_override = 1.0
+title = "Start your Journey!"
+initial_position = 1
+size = Vector2i(400, 200)
+unresizable = true
+popup_window = true
+minimize_disabled = true
+maximize_disabled = true
+theme_override_fonts/title_font = ExtResource("4_dhnir")
+
+[node name="CameraWindow" type="Camera2D" parent="Registration"]
+position = Vector2(200, 100)
+
+[node name="NameLabel" type="Label" parent="Registration/CameraWindow"]
+offset_left = -162.0
+offset_top = -68.0
+offset_right = -102.0
+offset_bottom = -45.0
+theme_override_fonts/font = ExtResource("3_4d22p")
+text = "Name"
+
+[node name="PasswordLabel" type="Label" parent="Registration/CameraWindow"]
+offset_left = 24.0
+offset_top = -68.0
+offset_right = 140.0
+offset_bottom = -45.0
+theme_override_fonts/font = ExtResource("3_4d22p")
+text = "Password"
+
+[node name="NameField" type="LineEdit" parent="Registration/CameraWindow"]
+offset_left = -162.0
+offset_top = -38.0
+offset_right = -12.0
+offset_bottom = -7.0
+
+[node name="PasswordField" type="LineEdit" parent="Registration/CameraWindow"]
+offset_left = 24.0
+offset_top = -38.0
+offset_right = 174.0
+offset_bottom = -7.0
+secret = true
+
+[node name="RegisterBtn" type="Button" parent="Registration/CameraWindow"]
+offset_left = -140.0
+offset_top = 40.0
+offset_right = -40.0
+offset_bottom = 71.0
+text = "Register"
+
+[node name="CloseBtn" type="Button" parent="Registration/CameraWindow"]
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 140.0
+offset_bottom = 71.0
+text = "Not now"
+
+[node name="ShowPasswordBtn" type="Button" parent="Registration/CameraWindow"]
+offset_left = 143.0
+offset_top = -38.0
+offset_right = 174.0
+offset_bottom = -7.0
+theme_override_fonts/font = ExtResource("4_dhnir")
+text = "-"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="close_requested" from="Registration" to="." method="_on_registration_close_requested"]
+[connection signal="button_down" from="Registration/CameraWindow/RegisterBtn" to="." method="_on_register_btn_button_down"]
+[connection signal="button_down" from="Registration/CameraWindow/CloseBtn" to="." method="_on_close_btn_button_down"]
+[connection signal="button_down" from="Registration/CameraWindow/ShowPasswordBtn" to="." method="_on_show_password_btn_button_down"]
