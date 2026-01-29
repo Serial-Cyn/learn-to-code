@@ -1,0 +1,105 @@
+[gd_scene load_steps=11 format=3 uid="uid://c56yakbxb6oi1"]
+
+[ext_resource type="Texture2D" uid="uid://bh4n7h5ulmsby" path="res://assets/sprites/slime_purple.png" id="1_kw6pg"]
+[ext_resource type="Script" uid="uid://qylwpy4k600t" path="res://scripts/utility_scripts/identification.gd" id="1_r1kxt"]
+[ext_resource type="FontFile" uid="uid://dgcs33ctyhfl4" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="3_8memv"]
+[ext_resource type="FontFile" uid="uid://c0bgh10idc3tl" path="res://assets/fonts/PixelOperator8.ttf" id="4_wxw4d"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r1kxt"]
+atlas = ExtResource("1_kw6pg")
+region = Rect2(0, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h1rji"]
+atlas = ExtResource("1_kw6pg")
+region = Rect2(24, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8memv"]
+atlas = ExtResource("1_kw6pg")
+region = Rect2(48, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wxw4d"]
+atlas = ExtResource("1_kw6pg")
+region = Rect2(72, 24, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pshxg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r1kxt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h1rji")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8memv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wxw4d")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kw6pg"]
+
+[node name="Identification" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_r1kxt")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -12)
+sprite_frames = SubResource("SpriteFrames_pshxg")
+autoplay = "default"
+
+[node name="InteractionZone" type="CollisionShape2D" parent="."]
+position = Vector2(0, -10)
+shape = SubResource("RectangleShape2D_kw6pg")
+
+[node name="AnswerSheet" type="Window" parent="."]
+oversampling_override = 1.0
+title = "Start your Journey!"
+initial_position = 1
+size = Vector2i(400, 200)
+unresizable = true
+popup_window = true
+minimize_disabled = true
+maximize_disabled = true
+theme_override_fonts/title_font = ExtResource("3_8memv")
+
+[node name="CameraWindow" type="Camera2D" parent="AnswerSheet"]
+position = Vector2(200, 100)
+
+[node name="NameLabel" type="Label" parent="AnswerSheet/CameraWindow"]
+offset_left = -100.0
+offset_top = -67.0
+offset_right = 114.0
+offset_bottom = -44.0
+theme_override_fonts/font = ExtResource("4_wxw4d")
+text = "Your answer is..."
+
+[node name="AnswerField" type="LineEdit" parent="AnswerSheet/CameraWindow"]
+offset_left = -150.0
+offset_top = -30.0
+offset_right = 150.0
+offset_bottom = 1.0
+
+[node name="SubmitBtn" type="Button" parent="AnswerSheet/CameraWindow"]
+offset_left = -140.0
+offset_top = 40.0
+offset_right = -40.0
+offset_bottom = 71.0
+text = "Submit"
+
+[node name="CloseBtn" type="Button" parent="AnswerSheet/CameraWindow"]
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 140.0
+offset_bottom = 71.0
+text = "Hold up"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="close_requested" from="AnswerSheet" to="." method="_on_answer_sheet_close_requested"]
+[connection signal="button_down" from="AnswerSheet/CameraWindow/SubmitBtn" to="." method="_on_submit_btn_button_down"]
+[connection signal="button_down" from="AnswerSheet/CameraWindow/CloseBtn" to="." method="_on_close_btn_button_down"]

@@ -42,6 +42,11 @@ func initialize_data():
 			"password": {
 				"data_type": "text",
 				"not_null": true,
+			},
+			"type": {
+				"data_type": "text",
+				"not_null": true,
+				"default": "student"
 			}
 		}
 		
@@ -74,6 +79,106 @@ func initialize_data():
 		}
 		
 		database.create_table("tbl_scores", tbl_scores) # Creates the table
+	
+	# CHECK IF tbl_choices EXIST
+	database.query("SELECT COUNT(*) as count FROM sqlite_master WHERE TYPE='table' AND NAME='tbl_choice'")
+	result = database.query_result
+	
+	if result[0]["count"] <= 0: # Create table if not exist
+		var tbl_choices: Dictionary = {
+			"id": {
+				"data_type": "int",
+				"primary_key": true,
+				"not_null": true,
+				"auto_increment": true
+			},
+			"question": {
+				"data_type": "text",
+				"not_null": true,
+			},
+			"choices": {
+				"data_type": "text",
+				"not_null": true,
+			},
+			"answer": {
+				"data_type": "text",
+				"not_null": true,
+			}
+		}
+		
+		database.create_table("tbl_choices", tbl_choices) # Creates the table
+	
+	# CHECK IF tbl_identify EXIST
+	database.query("SELECT COUNT(*) as count FROM sqlite_master WHERE TYPE='table' AND NAME='tbl_identify'")
+	result = database.query_result
+	
+	if result[0]["count"] <= 0: # Create table if not exist
+		var tbl_identify: Dictionary = {
+			"id": {
+				"data_type": "int",
+				"primary_key": true,
+				"not_null": true,
+				"auto_increment": true
+			},
+			"question": {
+				"data_type": "text",
+				"not_null": true,
+			},
+			"answer": {
+				"data_type": "text",
+				"not_null": true,
+			}
+		}
+		
+		database.create_table("tbl_identify", tbl_identify) # Creates the table
+	
+	# CHECK IF tbl_bool EXIST
+	database.query("SELECT COUNT(*) as count FROM sqlite_master WHERE TYPE='table' AND NAME='tbl_bool'")
+	result = database.query_result
+	
+	if result[0]["count"] <= 0: # Create table if not exist
+		var tbl_bool: Dictionary = {
+			"id": {
+				"data_type": "int",
+				"primary_key": true,
+				"not_null": true,
+				"auto_increment": true
+			},
+			"question": {
+				"data_type": "text",
+				"not_null": true,
+			},
+			"answer": {
+				"data_type": "text",
+				"not_null": true,
+			}
+		}
+		
+		database.create_table("tbl_bool", tbl_bool) # Creates the table
+	
+	# CHECK IF tbl_enum EXIST
+	database.query("SELECT COUNT(*) as count FROM sqlite_master WHERE TYPE='table' AND NAME='tbl_enum'")
+	result = database.query_result
+	
+	if result[0]["count"] <= 0: # Create table if not exist
+		var tbl_enum: Dictionary = {
+			"id": {
+				"data_type": "int",
+				"primary_key": true,
+				"not_null": true,
+				"auto_increment": true
+			},
+			"question": {
+				"data_type": "text",
+				"not_null": true,
+			},
+			"answer": {
+				"data_type": "text",
+				"not_null": true,
+			}
+		}
+		
+		database.create_table("tbl_enum", tbl_enum) # Creates the table
 
 func add_player(username: String, password: String) -> bool:
 	var condition: String
@@ -93,8 +198,8 @@ func add_player(username: String, password: String) -> bool:
 	
 	return result
 
-func find_player(username: String, password: String) -> bool:	
-	var condition = "username = '" + username + "' AND password = '" + password + "'"
+func find_player(username: String, password: String, type: String = "student") -> bool:	
+	var condition = "username = '" + username + "' AND password = '" + password + "' AND type = " + type + "'"
 	var result: Array = database.select_rows("tbl_account", condition, ["*"])
 	
 	if result.size() <= 0:

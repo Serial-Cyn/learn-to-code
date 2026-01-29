@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://cq7mqkkkvu36n"]
+
+[ext_resource type="Script" uid="uid://bh84022k83a8d" path="res://scripts/utility_scripts/enum_choice.gd" id="1_1qcd1"]
+[ext_resource type="Texture2D" uid="uid://bpcb04pgagmpn" path="res://assets/sprites/fruit.png" id="1_y56l8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1qcd1"]
+atlas = ExtResource("1_y56l8")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qdfdj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1qcd1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y56l8"]
+
+[node name="EnumChoice" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_1qcd1")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -8)
+sprite_frames = SubResource("SpriteFrames_qdfdj")
+autoplay = "default"
+
+[node name="InteractionZone" type="CollisionShape2D" parent="."]
+position = Vector2(0, -10)
+shape = SubResource("RectangleShape2D_y56l8")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

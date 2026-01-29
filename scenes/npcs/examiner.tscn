@@ -1,0 +1,168 @@
+[gd_scene load_steps=11 format=3 uid="uid://b2no1bnroh6lu"]
+
+[ext_resource type="Script" uid="uid://dg41lq2aqismo" path="res://scripts/npc_scripts/examiner.gd" id="1_b8g66"]
+[ext_resource type="Texture2D" uid="uid://dqxaypwrlmq1e" path="res://assets/sprites/knight.png" id="2_ayamd"]
+[ext_resource type="FontFile" uid="uid://c0bgh10idc3tl" path="res://assets/fonts/PixelOperator8.ttf" id="3_2cidx"]
+[ext_resource type="FontFile" uid="uid://dgcs33ctyhfl4" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="4_ayamd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gf5gu"]
+atlas = ExtResource("2_ayamd")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_igoej"]
+atlas = ExtResource("2_ayamd")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0cxkk"]
+atlas = ExtResource("2_ayamd")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xjtwp"]
+atlas = ExtResource("2_ayamd")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ywvjc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gf5gu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_igoej")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0cxkk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xjtwp")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aggmx"]
+size = Vector2(26, 20)
+
+[node name="Examiner" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_b8g66")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -12)
+sprite_frames = SubResource("SpriteFrames_ywvjc")
+autoplay = "default"
+
+[node name="InteractionZone" type="CollisionShape2D" parent="."]
+position = Vector2(0, -10)
+shape = SubResource("RectangleShape2D_aggmx")
+
+[node name="NameLabel" type="Label" parent="."]
+offset_left = -38.0
+offset_top = -31.0
+offset_right = 38.0
+offset_bottom = -23.0
+theme_override_fonts/font = ExtResource("3_2cidx")
+theme_override_font_sizes/font_size = 8
+text = "Examiner"
+horizontal_alignment = 1
+
+[node name="Admin" type="Window" parent="."]
+oversampling_override = 1.0
+title = "Start your Journey!"
+initial_position = 1
+size = Vector2i(400, 200)
+unresizable = true
+popup_window = true
+minimize_disabled = true
+maximize_disabled = true
+theme_override_fonts/title_font = ExtResource("4_ayamd")
+
+[node name="CameraWindow" type="Camera2D" parent="Admin"]
+position = Vector2(200, 100)
+
+[node name="NameLabel" type="Label" parent="Admin/CameraWindow"]
+offset_left = -162.0
+offset_top = -68.0
+offset_right = -102.0
+offset_bottom = -45.0
+theme_override_fonts/font = ExtResource("3_2cidx")
+text = "Name"
+
+[node name="PasswordLabel" type="Label" parent="Admin/CameraWindow"]
+offset_left = 24.0
+offset_top = -68.0
+offset_right = 140.0
+offset_bottom = -45.0
+theme_override_fonts/font = ExtResource("3_2cidx")
+text = "Password"
+
+[node name="NameField" type="LineEdit" parent="Admin/CameraWindow"]
+offset_left = -162.0
+offset_top = -38.0
+offset_right = -12.0
+offset_bottom = -7.0
+
+[node name="PasswordField" type="LineEdit" parent="Admin/CameraWindow"]
+offset_left = 24.0
+offset_top = -38.0
+offset_right = 174.0
+offset_bottom = -7.0
+secret = true
+
+[node name="LoginBtn" type="Button" parent="Admin/CameraWindow"]
+offset_left = -140.0
+offset_top = 40.0
+offset_right = -40.0
+offset_bottom = 71.0
+text = "Login"
+
+[node name="CloseBtn" type="Button" parent="Admin/CameraWindow"]
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 140.0
+offset_bottom = 71.0
+text = "Not now"
+
+[node name="ShowPasswordBtn" type="Button" parent="Admin/CameraWindow"]
+offset_left = 143.0
+offset_top = -38.0
+offset_right = 174.0
+offset_bottom = -7.0
+theme_override_fonts/font = ExtResource("4_ayamd")
+text = "-"
+
+[node name="Window" type="Window" parent="."]
+oversampling_override = 1.0
+title = "Question Form"
+initial_position = 1
+size = Vector2i(500, 400)
+theme_override_fonts/title_font = ExtResource("4_ayamd")
+
+[node name="CameraWindow" type="Camera2D" parent="Window"]
+position = Vector2(250, 200)
+
+[node name="QuestionLabel" type="Label" parent="Window/CameraWindow"]
+offset_left = -219.0
+offset_top = -175.0
+offset_right = -113.0
+offset_bottom = -152.0
+theme_override_fonts/font = ExtResource("3_2cidx")
+theme_override_font_sizes/font_size = 16
+text = "Question"
+
+[node name="AnswerLabel" type="Label" parent="Window/CameraWindow"]
+offset_left = -214.0
+offset_top = -100.0
+offset_right = -108.0
+offset_bottom = -77.0
+theme_override_fonts/font = ExtResource("3_2cidx")
+theme_override_font_sizes/font_size = 16
+text = "Answer"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="close_requested" from="Admin" to="." method="_on_admin_close_requested"]
+[connection signal="button_down" from="Admin/CameraWindow/LoginBtn" to="." method="_on_login_btn_button_down"]
+[connection signal="button_down" from="Admin/CameraWindow/CloseBtn" to="." method="_on_close_btn_button_down"]
+[connection signal="button_down" from="Admin/CameraWindow/ShowPasswordBtn" to="." method="_on_show_password_btn_button_down"]

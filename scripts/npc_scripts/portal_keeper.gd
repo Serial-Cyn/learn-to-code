@@ -29,11 +29,11 @@ func _process(delta: float) -> void:
 	# NPC is always facing player to add immersiveness
 	if player:
 		var player_pos_x = player.global_position.x
-		var gate_keeper_pos_x = self.global_position.x
+		var portal_keeper_pos_x = self.global_position.x
 		
-		if player_pos_x > gate_keeper_pos_x:
+		if player_pos_x > portal_keeper_pos_x:
 			sprite.flip_h = false
-		elif player_pos_x < gate_keeper_pos_x:
+		elif player_pos_x < portal_keeper_pos_x:
 			sprite.flip_h = true
 	
 	# To avoid visual clutter, names will only show when player is near
