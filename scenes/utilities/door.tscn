@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://cydfaqpcw5b2i"]
+[gd_scene load_steps=10 format=3 uid="uid://cydfaqpcw5b2i"]
 
 [ext_resource type="Texture2D" uid="uid://bpcb04pgagmpn" path="res://assets/sprites/fruit.png" id="1_nwlc6"]
 [ext_resource type="Script" uid="uid://du6jcrgfm2ij" path="res://scripts/utility_scripts/door.gd" id="1_phpmq"]
+[ext_resource type="FontFile" uid="uid://c0bgh10idc3tl" path="res://assets/fonts/PixelOperator8.ttf" id="3_w1als"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_phpmq"]
 atlas = ExtResource("1_nwlc6")
@@ -63,11 +64,24 @@ script = ExtResource("1_phpmq")
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -8)
 sprite_frames = SubResource("SpriteFrames_22piq")
-animation = &"open_f"
+animation = &"close_t"
+autoplay = "close_t"
 
 [node name="InteractionZone" type="CollisionShape2D" parent="."]
 position = Vector2(0, -10)
 shape = SubResource("RectangleShape2D_smhdk")
+
+[node name="ChoiceName" type="Label" parent="."]
+offset_left = -31.0
+offset_top = -62.0
+offset_right = 31.0
+offset_bottom = -20.0
+theme_override_fonts/font = ExtResource("3_w1als")
+theme_override_font_sizes/font_size = 8
+text = "HELLO"
+horizontal_alignment = 1
+vertical_alignment = 2
+autowrap_mode = 2
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

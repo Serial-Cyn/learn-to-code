@@ -1,7 +1,24 @@
-[gd_scene load_steps=9 format=3 uid="uid://dw06e80tgt6ml"]
+[gd_scene load_steps=14 format=3 uid="uid://dw06e80tgt6ml"]
 
 [ext_resource type="Texture2D" uid="uid://dg7x0ggj8is6e" path="res://assets/sprites/slime_green.png" id="1_2tlox"]
 [ext_resource type="Script" uid="uid://dsh8nqtws2pwx" path="res://scripts/utility_scripts/choice.gd" id="1_ycl7j"]
+[ext_resource type="FontFile" uid="uid://c0bgh10idc3tl" path="res://assets/fonts/PixelOperator8.ttf" id="3_1dw54"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gtn81"]
+atlas = ExtResource("1_2tlox")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f4b5b"]
+atlas = ExtResource("1_2tlox")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w22yr"]
+atlas = ExtResource("1_2tlox")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s082v"]
+atlas = ExtResource("1_2tlox")
+region = Rect2(72, 0, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ycl7j"]
 atlas = ExtResource("1_2tlox")
@@ -21,6 +38,23 @@ region = Rect2(72, 24, 24, 24)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_gtn81"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gtn81")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f4b5b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w22yr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s082v")
+}],
+"loop": true,
+"name": &"hover",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ycl7j")
@@ -48,12 +82,24 @@ script = ExtResource("1_ycl7j")
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_gtn81")
-animation = &"idle"
+animation = &"hover"
 autoplay = "idle"
 
 [node name="InteractionZone" type="CollisionShape2D" parent="."]
 position = Vector2(0, -10)
 shape = SubResource("RectangleShape2D_2tlox")
+
+[node name="ChoiceName" type="Label" parent="."]
+offset_left = -31.0
+offset_top = -62.0
+offset_right = 31.0
+offset_bottom = -20.0
+theme_override_fonts/font = ExtResource("3_1dw54")
+theme_override_font_sizes/font_size = 8
+text = "HELLO"
+horizontal_alignment = 1
+vertical_alignment = 2
+autowrap_mode = 2
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

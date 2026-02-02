@@ -215,7 +215,7 @@ shape = SubResource("WorldBoundaryShape2D_wjk5u")
 position = Vector2(1049, 16)
 
 [node name="PortalKeeper" parent="NPC" instance=ExtResource("6_4aywi")]
-position = Vector2(1877, 17)
+position = Vector2(1438, 16)
 
 [node name="Librarian" parent="NPC" instance=ExtResource("7_bkoo2")]
 position = Vector2(1162, 16)

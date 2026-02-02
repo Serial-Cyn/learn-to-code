@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cq7mqkkkvu36n"]
+[gd_scene load_steps=7 format=3 uid="uid://cq7mqkkkvu36n"]
 
 [ext_resource type="Script" uid="uid://bh84022k83a8d" path="res://scripts/utility_scripts/enum_choice.gd" id="1_1qcd1"]
 [ext_resource type="Texture2D" uid="uid://bpcb04pgagmpn" path="res://assets/sprites/fruit.png" id="1_y56l8"]
+[ext_resource type="FontFile" uid="uid://c0bgh10idc3tl" path="res://assets/fonts/PixelOperator8.ttf" id="3_qdfdj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1qcd1"]
 atlas = ExtResource("1_y56l8")
@@ -19,6 +20,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y56l8"]
+size = Vector2(6, 20)
 
 [node name="EnumChoice" type="Area2D"]
 collision_mask = 2
@@ -32,6 +34,18 @@ autoplay = "default"
 [node name="InteractionZone" type="CollisionShape2D" parent="."]
 position = Vector2(0, -10)
 shape = SubResource("RectangleShape2D_y56l8")
+
+[node name="ChoiceName" type="Label" parent="."]
+offset_left = -31.0
+offset_top = -62.0
+offset_right = 31.0
+offset_bottom = -20.0
+theme_override_fonts/font = ExtResource("3_qdfdj")
+theme_override_font_sizes/font_size = 8
+text = "HELLO"
+horizontal_alignment = 1
+vertical_alignment = 2
+autowrap_mode = 2
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 Music="*res://scenes/music.tscn"
 global="*res://scripts/global.gd"
+question_manager="*res://scripts/managers/question_manager.gd"
 
 [input]
 

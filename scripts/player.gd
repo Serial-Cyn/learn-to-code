@@ -34,7 +34,7 @@ func handle_gravity(delta: float):
 		velocity += get_gravity() * delta
 
 	# Handle jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	if Input.is_action_just_pressed("jump") and is_on_floor() and global.can_move:
 		velocity.y = JUMP_VELOCITY
 
 func handle_animation(direction: int):

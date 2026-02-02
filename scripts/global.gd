@@ -8,10 +8,12 @@ var is_connected: bool = false
 var player_id: int = -1
 var player: CharacterBody2D = null
 var can_move: bool = true
+var inventory: String
 
 func _ready() -> void:
 	connect_db()		# Establish connection with database
 	initialize_data()	# Checks if all tables are existing
+	question_manager.load_all_questions(database)
 
 
 # UTILITY FUNCTIONS
@@ -101,7 +103,7 @@ func initialize_data():
 				"not_null": true,
 			},
 			"answer": {
-				"data_type": "text",
+				"data_type": "int",
 				"not_null": true,
 			}
 		}
@@ -199,7 +201,11 @@ func add_player(username: String, password: String) -> bool:
 	return result
 
 func find_player(username: String, password: String, type: String = "student") -> bool:	
-	var condition = "username = '" + username + "' AND password = '" + password + "' AND type = " + type + "'"
+	username = sanitize(username)
+	password = sanitize(password)
+	type = sanitize(type)
+	
+	var condition = "username = '" + username + "' AND password = '" + password + "' AND type = '" + type + "'"
 	var result: Array = database.select_rows("tbl_account", condition, ["*"])
 	
 	if result.size() <= 0:
@@ -212,6 +218,53 @@ func find_player(username: String, password: String, type: String = "student") -
 
 	return true
 
+func add_mc_question(question: String, choices: String, answer: int) -> bool:
+	var data: Dictionary = {
+		"question": question,
+		"choices": choices,
+		"answer": answer
+	}
+	
+	if choices.is_empty():
+		return false # Choices cannot be empty
+	
+	var result: bool = database.insert_row("tbl_choices", data) # Inserts into the table
+	
+	return result
+
+func add_tf_question(question: String, answer: int) -> bool:
+	var data: Dictionary = {
+		"question": question,
+		"answer": answer
+	}
+	
+	var result: bool = database.insert_row("tbl_bool", data) # Inserts into the table
+	
+	return result
+
+func add_identify_question(question: String, answer: String) -> bool:
+	var data: Dictionary = {
+		"question": question,
+		"answer": answer
+	}
+	
+	var result: bool = database.insert_row("tbl_identify", data) # Inserts into the table
+	
+	return result
+
+func add_enum_question(question: String, answer: String) -> bool:
+	var data: Dictionary = {
+		"question": question,
+		"answer": answer,
+	}
+	
+	if answer.is_empty():
+		return false # Answers cannot be empty
+	
+	var result: bool = database.insert_row("tbl_enum", data) # Inserts into the table
+	
+	return result
+
 func hash_password(password: String) -> String:
 	const SECRET_KEY: String = "Chano" # Acts like a salt
 	
@@ -220,6 +273,9 @@ func hash_password(password: String) -> String:
 	var hashed_key: String = hashed_buffer.hex_encode() # Encode into hex for storage
 	
 	return hashed_key
+
+func sanitize(value: String) -> String:
+	return value.replace("'", "''")
 
 func announce_status(text: String):
 	player.add_status_label(text)
