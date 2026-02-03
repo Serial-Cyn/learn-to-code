@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://caalr70sl8xm3"]
+
+[ext_resource type="Texture2D" uid="uid://bpcb04pgagmpn" path="res://assets/sprites/fruit.png" id="1_54m47"]
+[ext_resource type="Script" uid="uid://bcux5cll2awx1" path="res://scripts/utility_scripts/heart.gd" id="2_0s1sc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ldgn0"]
+atlas = ExtResource("1_54m47")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0s1sc"]
+atlas = ExtResource("1_54m47")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_54m47"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ldgn0")
+}],
+"loop": true,
+"name": &"broken",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0s1sc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Heart" type="TextureRect"]
+offset_right = 40.0
+offset_bottom = 40.0
+expand_mode = 3
+script = ExtResource("2_0s1sc")
+sprites = SubResource("SpriteFrames_54m47")
+auto_play = true

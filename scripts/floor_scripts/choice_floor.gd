@@ -23,8 +23,13 @@ func setup_question(data: Dictionary) -> void:
 func _on_choice_selected(selected_id: int) -> void:
 	if selected_id == correct_answer:
 		global.announce_status("CORRECT")
+		global.add_score()
 	else:
 		global.announce_status("WRONG")
+		global.reduce_life()
+	
+	for choice in choices.values():
+		choice.disable_door()
 
 
 func _on_chunk_area_body_entered(body: Node2D) -> void:

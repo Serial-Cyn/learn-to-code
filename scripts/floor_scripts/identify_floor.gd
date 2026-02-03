@@ -21,5 +21,7 @@ func _on_chunk_area_body_exited(body: Node2D) -> void:
 func _on_identification_submitted(answer: String) -> void:
 	if answer == correct_answer:
 		global.announce_status("CORRECT")
+		global.add_score()
 	else:
 		global.announce_status("WRONG")
+		global.reduce_life()

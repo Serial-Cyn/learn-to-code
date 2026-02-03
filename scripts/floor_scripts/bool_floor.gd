@@ -40,5 +40,10 @@ func _on_setup_finished() -> void:
 func _on_choice_selected(selected_state: int) -> void:
 	if selected_state == correct_answer:
 		global.announce_status("CORRECT")
+		global.add_score()
 	else:
 		global.announce_status("WRONG")
+		global.reduce_life()
+	
+	for choice in choices.values():
+		choice.disable_door()

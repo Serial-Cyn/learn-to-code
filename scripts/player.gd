@@ -1,11 +1,11 @@
 extends CharacterBody2D
 
 @onready var sprite: AnimatedSprite2D = $Sprite
-@onready var status_bar: VBoxContainer = $CanvasLayer/StatusBar
+@onready var status_bar: VBoxContainer = $CanvasLayer/MarginContainer/StatusBar
 
 const PIXEL_OPERATOR_8 = preload("uid://c0bgh10idc3tl")
 
-const SPEED: float = 130.0
+const SPEED: float = 330.0
 const JUMP_VELOCITY: float = -300.0
 
 func _enter_tree() -> void:
@@ -21,6 +21,10 @@ func _physics_process(delta: float) -> void:
 	# For instances that requires the player to stay still
 	if global.can_move:
 		handle_movement(direction)	# Applies movement
+	
+	if Input.is_action_just_pressed("interact"):
+		if global.item:
+			global.drop_item()
 	
 	# Checks if there is any status labels to avoid unnecessary processing
 	if status_bar.get_children():
@@ -67,7 +71,7 @@ func add_status_label(text: String):
 	new_announcement.text = text
 	new_announcement.add_theme_font_override("font", PIXEL_OPERATOR_8)
 	new_announcement.add_theme_font_size_override("font_size", 16)
-	new_announcement.horizontal_alignment = 2
+	new_announcement.horizontal_alignment = 1
 	status_bar.add_child(new_announcement)
 
 func fade_out_statuses():

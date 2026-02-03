@@ -5,16 +5,33 @@ var database: SQLite
 var is_connected: bool = false
 
 # PLAYER
+var life: int = 3
 var player_id: int = -1
+var username: String = "Unknown"
 var player: CharacterBody2D = null
 var can_move: bool = true
-var inventory: String
+var item: Node2D
+var carrying: bool = false
+
+var pos_offset: Vector2 = Vector2(0, 15)
+
+# GAME
+const POINT: int = 100
+const MAX_SCORE: int = POINT * 20
+var points: int = 0
+var score: int = 0
+var grade: int = 0
+var game_over: bool = false
 
 func _ready() -> void:
 	connect_db()		# Establish connection with database
 	initialize_data()	# Checks if all tables are existing
 	question_manager.load_all_questions(database)
 
+func _process(delta: float) -> void:
+	# The item follows the player
+	if item:
+		item.global_position = player.global_position - pos_offset
 
 # UTILITY FUNCTIONS
 func connect_db():
@@ -73,6 +90,10 @@ func initialize_data():
 			"score": {
 				"data_type": "int",
 				"not_null": true,
+			},
+			"grade": {
+				"data_type": "real",
+				"not_null": true
 			},
 			"created_at": {
 				"data_type": "datetime",
@@ -274,8 +295,58 @@ func hash_password(password: String) -> String:
 	
 	return hashed_key
 
+func set_username(name: String) -> void:
+	username = name
+
 func sanitize(value: String) -> String:
 	return value.replace("'", "''")
 
 func announce_status(text: String):
 	player.add_status_label(text)
+
+func carry_item(to_carry: Node2D):
+	item = to_carry
+	carrying = true
+
+func drop_item():
+	item.global_position += pos_offset
+	item = null
+	carrying = false
+
+func add_score() -> void:
+	points += POINT
+	score += points
+
+func calculate_grade(score: int) -> float:
+	if MAX_SCORE <= 0:
+		return 0.0
+
+	var grade := (float(score) / float(MAX_SCORE)) * 100.0
+	return snapped(grade, 0.01)
+
+
+func reduce_life() -> void:
+	life -= 1
+
+func change_scene(scene_path: String):
+	FadeLayer.fade_out()
+	await FadeLayer.anim.animation_finished
+	get_tree().change_scene_to_file(scene_path)
+	FadeLayer.fade_in()
+
+func trigger_game_over():
+	if game_over:
+		return
+	
+	grade = calculate_grade(score)
+	
+	var data: Dictionary = {
+		"username": username,
+		"score": score,
+		"grade": grade
+	}
+	
+	var result: bool = database.insert_row("tbl_scores", data) # Inserts into the table
+	
+	game_over = true
+	change_scene("res://scenes/levels/start_floor.tscn")

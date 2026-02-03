@@ -27,6 +27,23 @@ var question := ""
 var correct_answers: Array = []
 var collector_pos: Vector2
 
+var inside_area: bool = false
+
+func _process(delta: float) -> void:
+	if not inside_area:
+		return
+	
+	if Input.is_action_just_pressed("reset"):
+		enum_collector.collected_answers = []
+		
+		for choice in choices:
+			if is_instance_valid(choice):
+				choice.queue_free()
+			else:
+				choices.erase(choice)
+		
+		choices.clear()
+		spawn_choices()
 
 # -----------------------------
 # Question Setup
@@ -65,18 +82,27 @@ func _on_chunk_area_body_entered(_body: Node2D) -> void:
 	var ui := get_tree().get_first_node_in_group("ui")
 	if ui:
 		ui.show_dialog(question)
+	
+	inside_area = true
 
 
 func _on_chunk_area_body_exited(_body: Node2D) -> void:
 	var ui := get_tree().get_first_node_in_group("ui")
 	if ui:
 		ui.hide_dialog()
+	
+	inside_area = false
 
 
 # -----------------------------
 # Choice Spawning
 # -----------------------------
 func _on_setup_finished() -> void:
+	spawn_choices()
+	
+	enum_collector.set_expected_answers(correct_answers)
+
+func spawn_choices() -> void:
 	collector_pos = enum_collector.position
 
 	var used_x: Array[float] = []
@@ -94,7 +120,6 @@ func _on_setup_finished() -> void:
 
 		choices.append(choice)
 		add_child(choice)
-
 
 func _get_choice_width(choice: Node2D) -> float:
 	var zone = choice.get_node("InteractionZone")
@@ -119,3 +144,12 @@ func _get_valid_x(used_x: Array[float], min_spacing: float) -> float:
 
 	# Fallback (never freeze)
 	return collector_pos.x
+
+
+func _on_enum_collector_submitted(correct: bool) -> void:
+	if correct:
+		global.announce_status("CORRECT")
+		global.add_score()
+	else:
+		global.announce_status("WRONG")
+		global.reduce_life()

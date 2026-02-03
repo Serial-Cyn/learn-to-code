@@ -1,7 +1,9 @@
 extends CanvasLayer
 
-@onready var panel := $PanelContainer
-@onready var question_label := $PanelContainer/MarginContainer/VBoxContainer/Label
+@onready var panel := $DialogBar
+@onready var question_label := $DialogBar/MarginContainer/VBoxContainer/Label
+
+@export var heart_sprite: PackedScene
 
 var typing_id := 0
 

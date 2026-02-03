@@ -1,47 +1,100 @@
 extends Area2D
 
-signal submitted(result: bool)
+signal submitted(correct: bool)
 
-var collected_answers: Array
-var expected_answers: Array
-var is_in_interaction_zone: bool = false
+@onready var instruction_label: Label = $InstructionLabel
+
+@export var submit_hold_time := 0.6 # seconds required to submit
+
+var hold_timer := 0.0
+var is_holding := false
+var hold_progress := hold_timer / submit_hold_time
+
+var collected_answers: Array = []
+var expected_answers: Array = []
+
+var is_in_interaction_zone := false
+var can_submit := false
 
 func _process(delta: float) -> void:
+	instruction_label.visible = false # default state
+
 	if expected_answers.is_empty():
-		return # Node is not yet confifured
+		reset_hold()
+		return
+
+	if not is_in_interaction_zone:
+		reset_hold()
+		return
 	
-	if is_in_interaction_zone and Input.is_action_just_pressed("interact"):
-	
-		if collected_answers.is_empty():
-			return # No answers to process
+	if global.item:
+		instruction_label.text = "Press 'E' to place answer"
+		instruction_label.visible = true
 		
-		# collected answers must match the number of expected answers, otherwise it is wrong
-		if collected_answers.size() != expected_answers.size():
+		reset_hold()
+		return
+
+	if not can_submit:
+		reset_hold()
+		return
+
+	# Player can submit
+	instruction_label.visible = true
+
+	if Input.is_action_pressed("interact"):
+		is_holding = true
+		hold_timer += delta
+
+		var hold_progress := hold_timer / submit_hold_time
+		instruction_label.modulate = Color(1, 1 - hold_progress, 1 - hold_progress)
+		instruction_label.text = "Submitting: " + str(int(hold_progress * 100)) + "%"
+
+		if hold_timer >= submit_hold_time:
+			submit_answers()
+			reset_hold()
+	else:
+		instruction_label.text = "Hold 'E' to Submit"
+		instruction_label.modulate = Color(1, 1, 1)
+		reset_hold()
+
+func submit_answers() -> void:
+	if collected_answers.size() != expected_answers.size():
+		submitted.emit(false)
+		can_submit = false
+		return
+
+	for answer in collected_answers:
+		if answer not in expected_answers:
+			submitted.emit(false)
+			can_submit = false
 			return
-		
-		var are_answers_same = true
-		for answer in collected_answers:
-			if expected_answers.has(answer):
-				continue
-			else:
-				are_answers_same = false
-				
-				break # End loop because one or more of the answers are wrong
-		
-		if are_answers_same:
-			submitted.emit(true) # Answers are correct
-		else:
-			submitted.emit(false) # Answers are wrong
+
+	submitted.emit(true)
+	can_submit = false
+	
+func reset_hold() -> void:
+	hold_timer = 0.0
+	is_holding = false
+
 
 func _on_body_entered(body: Node2D) -> void:
-	is_in_interaction_zone = true
-
+	if body.is_in_group("player"):
+		is_in_interaction_zone = true
 
 func _on_body_exited(body: Node2D) -> void:
-	is_in_interaction_zone = false
+	if body.is_in_group("player"):
+		is_in_interaction_zone = false
 
-func set_expected_answers(answers: Array):
+func set_expected_answers(answers: Array) -> void:
 	expected_answers = answers
+	can_submit = true # Explicitly allow submission
 
-func populate_collector(answers: Array):
+func populate_collector(answers: Array) -> void:
 	collected_answers = answers
+
+func _on_drop_zone_area_entered(area: Area2D) -> void:
+	if area.value in collected_answers:
+		return # prevent duplicates
+
+	collected_answers.append(area.value)
+	area.queue_free()

@@ -7,26 +7,30 @@ extends Area2D
 signal submitted(answer: String)
 
 var is_in_interaction_zone: bool = false
+var is_interacted: bool = false
 var answer: String
 
 func _ready() -> void:
+	choice_name.visible = false
 	answer_sheet.hide()
 
 func _process(delta: float) -> void:
 	if not is_in_interaction_zone:
-		choice_name.visible = false
 		return
 	
-	choice_name.visible = true
+	if is_interacted:
+		return
 		
 	if Input.is_action_just_pressed("interact"):
 		global.can_move = false
 		answer_sheet.show()
 
 func _on_body_entered(body: Node2D) -> void:
+	choice_name.visible = true
 	is_in_interaction_zone = true
 
 func _on_body_exited(body: Node2D) -> void:
+	choice_name.visible = false
 	is_in_interaction_zone = false
 
 func _on_submit_btn_button_down() -> void:
@@ -35,6 +39,7 @@ func _on_submit_btn_button_down() -> void:
 	answer_sheet.hide()
 	
 	# Emit to notify listening nodes to process the answer
+	is_interacted = true
 	submitted.emit(answer)
 
 func _on_close_btn_button_down() -> void:

@@ -1,7 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://cmjj2e7xh5pi0"]
+[gd_scene load_steps=19 format=3 uid="uid://cmjj2e7xh5pi0"]
 
 [ext_resource type="Script" uid="uid://b10g3eeggegf4" path="res://scripts/utility_scripts/enum_collector.gd" id="1_6ksi7"]
 [ext_resource type="Texture2D" uid="uid://du7qh1olqsvov" path="res://assets/sprites/coin.png" id="1_ys6be"]
+[ext_resource type="FontFile" uid="uid://c0bgh10idc3tl" path="res://assets/fonts/PixelOperator8.ttf" id="3_d8mfu"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6ksi7"]
 atlas = ExtResource("1_ys6be")
@@ -97,6 +98,9 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ys6be"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6ksi7"]
+size = Vector2(20, 3)
+
 [node name="EnumCollector" type="Area2D"]
 collision_mask = 2
 script = ExtResource("1_6ksi7")
@@ -110,5 +114,26 @@ autoplay = "default"
 position = Vector2(0, -10)
 shape = SubResource("RectangleShape2D_ys6be")
 
+[node name="DropZone" type="Area2D" parent="."]
+collision_mask = 4
+
+[node name="DropArea" type="CollisionShape2D" parent="DropZone"]
+position = Vector2(0, -1.5)
+shape = SubResource("RectangleShape2D_6ksi7")
+debug_color = Color(0, 0.6437156, 0.30062443, 0.41960785)
+
+[node name="InstructionLabel" type="Label" parent="."]
+offset_left = -31.0
+offset_top = -62.0
+offset_right = 31.0
+offset_bottom = -20.0
+theme_override_fonts/font = ExtResource("3_d8mfu")
+theme_override_font_sizes/font_size = 8
+text = "(>_<)"
+horizontal_alignment = 1
+vertical_alignment = 2
+autowrap_mode = 2
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="area_entered" from="DropZone" to="." method="_on_drop_zone_area_entered"]

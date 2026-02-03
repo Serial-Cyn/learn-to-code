@@ -199,5 +199,6 @@ position = Vector2(0, 123)
 shape = SubResource("WorldBoundaryShape2D_daum7")
 
 [connection signal="setup_finished" from="." to="." method="_on_setup_finished"]
+[connection signal="submitted" from="EnumCollector" to="." method="_on_enum_collector_submitted"]
 [connection signal="body_entered" from="ChunkArea" to="." method="_on_chunk_area_body_entered"]
 [connection signal="body_exited" from="ChunkArea" to="." method="_on_chunk_area_body_exited"]

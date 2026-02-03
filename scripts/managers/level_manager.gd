@@ -2,7 +2,7 @@ extends Node2D
 
 @export var player: Node2D
 @export var chunk_scenes: Array[PackedScene]
-@onready var dialog_ui: CanvasLayer = $DialogUI
+@onready var dialog_ui: CanvasLayer = $UI
 @onready var chunks: Node2D = $Chunks
 
 const TILE_SIZE: int = 16
@@ -50,7 +50,7 @@ func _spawn_chunk(index: int) -> void:
 
 	# Mode logic
 	mode_ctr += 1
-	if mode_ctr % 1 == 0:
+	if mode_ctr % 5 == 0:
 		mode_index += 1
 		mode_ctr = 0
 

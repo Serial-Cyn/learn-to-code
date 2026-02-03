@@ -18,8 +18,7 @@ func _process(delta: float) -> void:
 		choice_name.visible = true
 		
 		if Input.is_action_just_pressed("interact"):
-				
-			toggle_choice(false)
+			global.carry_item(self)
 
 
 func _on_body_entered(body: Node2D) -> void:
@@ -28,8 +27,4 @@ func _on_body_entered(body: Node2D) -> void:
 
 func _on_body_exited(body: Node2D) -> void:
 	is_in_interaction_zone = false
-	
-func toggle_choice(state: bool):
-	interaction_zone.disabled = true
-	self.visible = false
 	

@@ -64,7 +64,7 @@ script = ExtResource("1_phpmq")
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -8)
 sprite_frames = SubResource("SpriteFrames_22piq")
-animation = &"close_t"
+animation = &"close_f"
 autoplay = "close_t"
 
 [node name="InteractionZone" type="CollisionShape2D" parent="."]
