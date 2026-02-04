@@ -111,16 +111,16 @@ offset_bottom = -7.0
 secret = true
 
 [node name="RegisterBtn" type="Button" parent="Registration/CameraWindow"]
-offset_left = -140.0
+offset_left = 40.0
 offset_top = 40.0
-offset_right = -40.0
+offset_right = 140.0
 offset_bottom = 71.0
 text = "Register"
 
 [node name="CloseBtn" type="Button" parent="Registration/CameraWindow"]
-offset_left = 40.0
+offset_left = -143.0
 offset_top = 40.0
-offset_right = 140.0
+offset_right = -43.0
 offset_bottom = 71.0
 text = "Not now"
 

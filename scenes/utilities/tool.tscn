@@ -1,0 +1,76 @@
+[gd_scene load_steps=8 format=3 uid="uid://cwpruptehn753"]
+
+[ext_resource type="Script" uid="uid://j3asj6qjoa13" path="res://scripts/utility_scripts/tool.gd" id="1_mvacd"]
+[ext_resource type="FontFile" uid="uid://c0bgh10idc3tl" path="res://assets/fonts/PixelOperator8.ttf" id="2_lgg71"]
+[ext_resource type="Script" uid="uid://bmay245lyft6h" path="res://scripts/utility_scripts/window.gd" id="3_lgg71"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v2een"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_84k18"]
+
+[sub_resource type="SystemFont" id="SystemFont_lgg71"]
+subpixel_positioning = 0
+
+[sub_resource type="SystemFont" id="SystemFont_25h04"]
+subpixel_positioning = 0
+
+[node name="Tool" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_mvacd")
+
+[node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -10)
+sprite_frames = SubResource("SpriteFrames_v2een")
+
+[node name="InteractionZone" type="CollisionShape2D" parent="."]
+position = Vector2(0, -10)
+shape = SubResource("RectangleShape2D_84k18")
+
+[node name="Name" type="Label" parent="."]
+offset_left = -20.0
+offset_top = -50.0
+offset_right = 20.0
+offset_bottom = -20.0
+theme_override_fonts/font = ExtResource("2_lgg71")
+theme_override_font_sizes/font_size = 8
+text = "(>_<)"
+horizontal_alignment = 1
+vertical_alignment = 2
+autowrap_mode = 2
+
+[node name="Window" type="Window" parent="."]
+oversampling_override = 1.0
+initial_position = 1
+size = Vector2i(800, 500)
+script = ExtResource("3_lgg71")
+header_font = SubResource("SystemFont_lgg71")
+body_font = SubResource("SystemFont_25h04")
+body_font_size = 14
+
+[node name="PanelContainer" type="PanelContainer" parent="Window"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Window/PanelContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Window/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Window/PanelContainer/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Window/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="close_requested" from="Window" to="Window" method="_on_close_requested"]

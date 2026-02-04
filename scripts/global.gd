@@ -22,6 +22,12 @@ var points: int = 0
 var score: int = 0
 var grade: int = 0
 var game_over: bool = false
+var max_time: int = 180 # Default value
+
+# FLOOR
+var floor_count: Array = [5, 5, 5, 5] # Just to give the game a number to spawn
+var num_of_floor: int = 0
+var num_of_submit: int = 0
 
 func _ready() -> void:
 	connect_db()		# Establish connection with database
@@ -350,3 +356,22 @@ func trigger_game_over():
 	
 	game_over = true
 	change_scene("res://scenes/levels/start_floor.tscn")
+
+func is_finished_level():
+	if num_of_submit == num_of_floor:
+		trigger_game_over()
+
+func update_game_settings(new_count: Array, new_time: int) -> bool:
+	if new_count == null:
+		return false
+	
+	max_time = new_time
+	
+	floor_count = new_count
+	return true
+
+func get_floor_count() -> Array:
+	return floor_count
+
+func get_max_time() -> int:
+	return max_time

@@ -69,7 +69,7 @@ horizontal_alignment = 1
 
 [node name="Admin" type="Window" parent="."]
 oversampling_override = 1.0
-title = "Start your Journey!"
+title = "Restricted Section"
 initial_position = 1
 size = Vector2i(400, 200)
 visible = false
@@ -112,18 +112,18 @@ offset_bottom = -7.0
 secret = true
 
 [node name="LoginBtn" type="Button" parent="Admin/CameraWindow"]
-offset_left = -140.0
+offset_left = 43.0
 offset_top = 40.0
-offset_right = -40.0
+offset_right = 143.0
 offset_bottom = 71.0
 text = "Login"
 
 [node name="CloseBtn" type="Button" parent="Admin/CameraWindow"]
-offset_left = 40.0
+offset_left = -140.0
 offset_top = 40.0
-offset_right = 140.0
+offset_right = -40.0
 offset_bottom = 71.0
-text = "Not now"
+text = "Close"
 
 [node name="ShowPasswordBtn" type="Button" parent="Admin/CameraWindow"]
 offset_left = 143.0
@@ -135,53 +135,106 @@ text = "-"
 
 [node name="Menu" type="Window" parent="."]
 oversampling_override = 1.0
-title = "Question Form"
+title = "Menu"
 initial_position = 1
-size = Vector2i(500, 200)
+size = Vector2i(300, 200)
 visible = false
 theme_override_fonts/title_font = ExtResource("4_ayamd")
 
-[node name="CameraWindow" type="Camera2D" parent="Menu"]
-position = Vector2(250, 100)
+[node name="MarginContainer" type="MarginContainer" parent="Menu"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
 
-[node name="Label" type="Label" parent="Menu/CameraWindow"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+
+[node name="QuetionFormBtn" type="Button" parent="Menu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_2cidx")
+text = "Question Form"
+
+[node name="SettingsBtn" type="Button" parent="Menu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_2cidx")
+text = "Settings"
+
+[node name="MenuCloseBtn" type="Button" parent="Menu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_2cidx")
+text = "Close"
+
+[node name="QuestionForm" type="Window" parent="."]
+oversampling_override = 1.0
+title = "Question Form"
+initial_position = 1
+size = Vector2i(500, 250)
+visible = false
+theme_override_fonts/title_font = ExtResource("4_ayamd")
+
+[node name="CameraWindow" type="Camera2D" parent="QuestionForm"]
+position = Vector2(250, 125)
+
+[node name="Label" type="Label" parent="QuestionForm/CameraWindow"]
 offset_left = -143.0
-offset_top = -68.0
+offset_top = -98.0
 offset_right = 143.0
-offset_bottom = -52.0
+offset_bottom = -82.0
 pivot_offset = Vector2(143, 8)
 theme_override_fonts/font = ExtResource("3_2cidx")
 text = "Select Question Type..."
 
-[node name="GridContainer" type="GridContainer" parent="Menu/CameraWindow"]
+[node name="GridContainer" type="GridContainer" parent="QuestionForm/CameraWindow"]
 offset_left = -198.0
-offset_top = -16.0
+offset_top = -46.0
 offset_right = 198.0
-offset_bottom = 48.0
+offset_bottom = 18.0
 pivot_offset = Vector2(198, 32)
 theme_override_constants/h_separation = 16
 theme_override_constants/v_separation = 16
 columns = 2
 
-[node name="MCBtn" type="Button" parent="Menu/CameraWindow/GridContainer"]
+[node name="MCBtn" type="Button" parent="QuestionForm/CameraWindow/GridContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_2cidx")
 text = "Multiple Choice"
 
-[node name="TFBtn" type="Button" parent="Menu/CameraWindow/GridContainer"]
+[node name="TFBtn" type="Button" parent="QuestionForm/CameraWindow/GridContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_2cidx")
 text = "True or False"
 
-[node name="EnumBtn" type="Button" parent="Menu/CameraWindow/GridContainer"]
+[node name="EnumBtn" type="Button" parent="QuestionForm/CameraWindow/GridContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_2cidx")
 text = "Enumeration"
 
-[node name="IdentifyBtn" type="Button" parent="Menu/CameraWindow/GridContainer"]
+[node name="IdentifyBtn" type="Button" parent="QuestionForm/CameraWindow/GridContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_2cidx")
 text = "Identification"
+
+[node name="QFClose" type="Button" parent="QuestionForm/CameraWindow"]
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -43.5
+offset_top = 63.0
+offset_right = 56.5
+offset_bottom = 94.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_2cidx")
+text = "Go Back"
 
 [node name="MultipleChoiceWindow" type="Window" parent="."]
 oversampling_override = 1.0
@@ -257,16 +310,16 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="MCSubmitBtn" type="Button" parent="MultipleChoiceWindow/CameraWindow"]
-offset_left = -193.0
+offset_left = 103.0
 offset_top = 137.0
-offset_right = -93.0
+offset_right = 203.0
 offset_bottom = 168.0
 text = "Submit"
 
 [node name="MCBackBtn" type="Button" parent="MultipleChoiceWindow/CameraWindow"]
-offset_left = 92.0
+offset_left = -192.0
 offset_top = 137.0
-offset_right = 192.0
+offset_right = -92.0
 offset_bottom = 168.0
 text = "Go Back"
 
@@ -275,6 +328,7 @@ oversampling_override = 1.0
 title = "True or False"
 initial_position = 1
 size = Vector2i(500, 325)
+visible = false
 unresizable = true
 popup_window = true
 minimize_disabled = true
@@ -320,16 +374,16 @@ item_0/text = "TRUE"
 item_1/text = "FALSE"
 
 [node name="TFSubmitBtn" type="Button" parent="TrueOrFalseWindow/CameraWindow"]
-offset_left = -193.0
+offset_left = 68.0
 offset_top = 87.0
-offset_right = -93.0
+offset_right = 168.0
 offset_bottom = 118.0
 text = "Submit"
 
 [node name="TFBackBtn" type="Button" parent="TrueOrFalseWindow/CameraWindow"]
-offset_left = 92.0
+offset_left = -193.0
 offset_top = 87.0
-offset_right = 192.0
+offset_right = -93.0
 offset_bottom = 118.0
 text = "Go Back"
 
@@ -378,16 +432,16 @@ offset_bottom = 26.0
 size_flags_horizontal = 3
 
 [node name="ISubmitBtn" type="Button" parent="IdentificationWindow/CameraWindow"]
-offset_left = -193.0
+offset_left = 80.0
 offset_top = 79.0
-offset_right = -93.0
+offset_right = 180.0
 offset_bottom = 110.0
 text = "Submit"
 
 [node name="IBackBtn" type="Button" parent="IdentificationWindow/CameraWindow"]
-offset_left = 92.0
+offset_left = -193.0
 offset_top = 79.0
-offset_right = 192.0
+offset_right = -93.0
 offset_bottom = 110.0
 text = "Go Back"
 
@@ -437,16 +491,16 @@ offset_bottom = 51.0
 theme_override_fonts/font = ExtResource("3_2cidx")
 
 [node name="ESubmitBtn" type="Button" parent="EnumerationWindow/CameraWindow"]
-offset_left = -193.0
+offset_left = 89.0
 offset_top = 90.0
-offset_right = -93.0
+offset_right = 189.0
 offset_bottom = 121.0
 text = "Submit"
 
 [node name="EBackBtn" type="Button" parent="EnumerationWindow/CameraWindow"]
-offset_left = 92.0
+offset_left = -200.0
 offset_top = 90.0
-offset_right = 192.0
+offset_right = -100.0
 offset_bottom = 121.0
 text = "Go Back"
 
@@ -456,11 +510,15 @@ text = "Go Back"
 [connection signal="button_down" from="Admin/CameraWindow/LoginBtn" to="." method="_on_login_btn_button_down"]
 [connection signal="button_down" from="Admin/CameraWindow/CloseBtn" to="." method="_on_close_btn_button_down"]
 [connection signal="button_down" from="Admin/CameraWindow/ShowPasswordBtn" to="." method="_on_show_password_btn_button_down"]
-[connection signal="close_requested" from="Menu" to="." method="_on_menu_close_requested"]
-[connection signal="button_down" from="Menu/CameraWindow/GridContainer/MCBtn" to="." method="_on_mc_btn_button_down"]
-[connection signal="button_down" from="Menu/CameraWindow/GridContainer/TFBtn" to="." method="_on_tf_btn_button_down"]
-[connection signal="button_down" from="Menu/CameraWindow/GridContainer/EnumBtn" to="." method="_on_enum_btn_button_down"]
-[connection signal="button_down" from="Menu/CameraWindow/GridContainer/IdentifyBtn" to="." method="_on_identify_btn_button_down"]
+[connection signal="button_down" from="Menu/MarginContainer/VBoxContainer/QuetionFormBtn" to="." method="_on_quetion_form_btn_button_down"]
+[connection signal="button_down" from="Menu/MarginContainer/VBoxContainer/SettingsBtn" to="." method="_on_settings_btn_button_down"]
+[connection signal="button_down" from="Menu/MarginContainer/VBoxContainer/MenuCloseBtn" to="." method="_on_menu_close_btn_button_down"]
+[connection signal="close_requested" from="QuestionForm" to="." method="_on_menu_close_requested"]
+[connection signal="button_down" from="QuestionForm/CameraWindow/GridContainer/MCBtn" to="." method="_on_mc_btn_button_down"]
+[connection signal="button_down" from="QuestionForm/CameraWindow/GridContainer/TFBtn" to="." method="_on_tf_btn_button_down"]
+[connection signal="button_down" from="QuestionForm/CameraWindow/GridContainer/EnumBtn" to="." method="_on_enum_btn_button_down"]
+[connection signal="button_down" from="QuestionForm/CameraWindow/GridContainer/IdentifyBtn" to="." method="_on_identify_btn_button_down"]
+[connection signal="button_down" from="QuestionForm/CameraWindow/QFClose" to="." method="_on_qf_close_button_down"]
 [connection signal="close_requested" from="MultipleChoiceWindow" to="." method="_on_multiple_choice_window_close_requested"]
 [connection signal="button_down" from="MultipleChoiceWindow/CameraWindow/MCSubmitBtn" to="." method="_on_mc_submit_btn_button_down"]
 [connection signal="button_down" from="MultipleChoiceWindow/CameraWindow/MCBackBtn" to="." method="_on_mc_back_btn_button_down"]

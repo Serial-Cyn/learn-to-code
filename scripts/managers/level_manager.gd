@@ -10,8 +10,26 @@ const CHUNK_X: int = 24 * TILE_SIZE
 const CHUNK_Y: int = 12 * TILE_SIZE
 const CHUNKS_TO_KEEP := 3
 
-var question_type: Array = ["mc", "tf", "identify", "enum"]
+var question_setup: Array[Dictionary] = [
+	{
+		"type": "mc",
+		"floors": 1,
+	},
+	{
+		"type": "tf",
+		"floors": 2,
+	},
+	{
+		"type": "identify",
+		"floors": 3,
+	},
+	{
+		"type": "enum",
+		"floors": 4,
+	},
+]
 var mode_ctr: int = 0
+var max_floor: int = 0
 var mode_index: int = 0
 
 var current_chunk_index : int = 0
@@ -20,6 +38,7 @@ var active_chunks: Dictionary = {}  # index -> Node
 var question_data: Dictionary
 
 func _ready():
+	update_floor_count(global.get_floor_count())
 	for i in range(CHUNKS_TO_KEEP):
 		_spawn_chunk(i)
 
@@ -42,15 +61,23 @@ func _spawn_chunk(index: int) -> void:
 
 	chunk.position = Vector2(index * CHUNK_X, 0)
 	chunks.add_child(chunk)
+	
+	# Track the number of floors
+	global.num_of_floor += 1
 
 	# Inject question data
-	var question_data = question_manager.get_question_by_type(question_type[mode_index])
+	var setup := question_setup[mode_index]
+
+	question_data = question_manager.get_question_by_type(setup["type"])
+	
 	if chunk.has_method("setup_question"):
 		chunk.setup_question(question_data)
-
+	
+	max_floor = setup["floors"]
+	
 	# Mode logic
 	mode_ctr += 1
-	if mode_ctr % 5 == 0:
+	if mode_ctr % max_floor == 0:
 		mode_index += 1
 		mode_ctr = 0
 
@@ -71,3 +98,10 @@ func _delete_chunk(index: int) -> void:
 
 	active_chunks[index].queue_free()
 	active_chunks.erase(index)
+
+func update_floor_count(floor_count: Array) -> void:
+	if floor_count == null:
+		return
+
+	for i in range(min(floor_count.size(), question_setup.size())):
+		question_setup[i]["floors"] = floor_count[i]

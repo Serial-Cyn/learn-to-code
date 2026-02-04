@@ -45,5 +45,8 @@ func _on_choice_selected(selected_state: int) -> void:
 		global.announce_status("WRONG")
 		global.reduce_life()
 	
+	global.num_of_submit += 1
+	global.is_finished_level()
+	
 	for choice in choices.values():
 		choice.disable_door()

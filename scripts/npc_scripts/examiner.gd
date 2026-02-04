@@ -9,12 +9,15 @@ extends Area2D
 @onready var password_field: LineEdit = $Admin/CameraWindow/PasswordField
 @onready var show_password_btn: Button = $Admin/CameraWindow/ShowPasswordBtn
 
+# MENU
+@onready var menu: Window = $Menu
+
 # QUESTIONNAIRE FORMS
 @onready var multiple_choice_window: Window = $MultipleChoiceWindow
 @onready var true_or_false_window: Window = $TrueOrFalseWindow
 @onready var identification_window: Window = $IdentificationWindow
 @onready var enumeration_window: Window = $EnumerationWindow
-@onready var menu: Window = $Menu
+@onready var question_form: Window = $QuestionForm
 
 # MULTIPLE CHOICE
 @onready var mc_question_field: LineEdit = $MultipleChoiceWindow/CameraWindow/QuestionField
@@ -34,7 +37,6 @@ extends Area2D
 
 # ENUMERATION
 @onready var question_field: LineEdit = $EnumerationWindow/CameraWindow/QuestionField
-@onready var answer_field: LineEdit = $EnumerationWindow/CameraWindow/AnswerField
 @onready var items_field: TextEdit = $EnumerationWindow/CameraWindow/ItemsField
 
 
@@ -44,6 +46,8 @@ var player: Node2D = null
 # MAIN FUNCTION
 func _ready() -> void:
 	admin.hide()
+	question_form.hide()
+	menu.hide()
 	multiple_choice_window.hide()
 	true_or_false_window.hide()
 	identification_window.hide()
@@ -116,36 +120,36 @@ func _on_show_password_btn_button_down() -> void:
 
 func _on_multiple_choice_window_close_requested() -> void:
 	multiple_choice_window.hide()
-	menu.show()
+	question_form.show()
 
 func _on_true_or_false_window_close_requested() -> void:
 	true_or_false_window.hide()
-	menu.show()
+	question_form.show()
 
 func _on_identification_window_close_requested() -> void:
 	identification_window.hide()
-	menu.show()
+	question_form.show()
 
 func _on_enumeration_window_close_requested() -> void:
 	enumeration_window.hide()
-	menu.show()
+	question_form.show()
 
 
 func _on_mc_back_btn_button_down() -> void:
 	multiple_choice_window.hide()
-	menu.show()
+	question_form.show()
 
 func _on_tf_back_btn_button_down() -> void:
 	true_or_false_window.hide()
-	menu.show()
+	question_form.show()
 
 func _on_i_back_btn_button_down() -> void:
 	identification_window.hide()
-	menu.show()
+	question_form.show()
 
 func _on_e_back_btn_button_down() -> void:
 	enumeration_window.hide()
-	menu.show()
+	question_form.show()
 
 
 func _on_mc_submit_btn_button_down() -> void:
@@ -300,21 +304,38 @@ func _clear_enum_form() -> void:
 
 
 func _on_mc_btn_button_down() -> void:
-	menu.hide()
+	question_form.hide()
 	multiple_choice_window.show()
 
 func _on_tf_btn_button_down() -> void:
-	menu.hide()
+	question_form.hide()
 	true_or_false_window.show()
 
 func _on_enum_btn_button_down() -> void:
-	menu.hide()
+	question_form.hide()
 	enumeration_window.show()
 
 func _on_identify_btn_button_down() -> void:
-	menu.hide()
+	question_form.hide()
 	identification_window.show()
 
 func _on_menu_close_requested() -> void:
 	global.can_move = true
+	question_form.hide()
+
+
+func _on_quetion_form_btn_button_down() -> void:
 	menu.hide()
+	question_form.show()
+
+func _on_settings_btn_button_down() -> void:
+	Settings.show()
+
+func _on_menu_close_btn_button_down() -> void:
+	global.can_move = true
+	menu.hide()
+
+
+func _on_qf_close_button_down() -> void:
+	question_form.hide()
+	menu.show()

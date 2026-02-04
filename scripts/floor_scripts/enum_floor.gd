@@ -153,3 +153,6 @@ func _on_enum_collector_submitted(correct: bool) -> void:
 	else:
 		global.announce_status("WRONG")
 		global.reduce_life()
+	
+	global.num_of_submit += 1
+	global.is_finished_level()

@@ -85,16 +85,16 @@ offset_right = 150.0
 offset_bottom = 1.0
 
 [node name="SubmitBtn" type="Button" parent="AnswerSheet/CameraWindow"]
-offset_left = -140.0
+offset_left = 36.0
 offset_top = 40.0
-offset_right = -40.0
+offset_right = 136.0
 offset_bottom = 71.0
 text = "Submit"
 
 [node name="CloseBtn" type="Button" parent="AnswerSheet/CameraWindow"]
-offset_left = 40.0
+offset_left = -140.0
 offset_top = 40.0
-offset_right = 140.0
+offset_right = -40.0
 offset_bottom = 71.0
 text = "Hold up"
 

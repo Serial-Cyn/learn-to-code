@@ -5,7 +5,7 @@ extends CharacterBody2D
 
 const PIXEL_OPERATOR_8 = preload("uid://c0bgh10idc3tl")
 
-const SPEED: float = 330.0
+const SPEED: float = 130.0
 const JUMP_VELOCITY: float = -300.0
 
 func _enter_tree() -> void:

@@ -201,7 +201,7 @@ offset_left = -287.0
 offset_right = 287.0
 offset_bottom = 294.0
 grow_horizontal = 2
-theme_override_constants/margin_top = 24
+theme_override_constants/margin_top = 64
 
 [node name="StatusBar" type="VBoxContainer" parent="CanvasLayer/MarginContainer"]
 layout_mode = 2

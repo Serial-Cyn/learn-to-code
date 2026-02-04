@@ -59,6 +59,14 @@ func _on_login_btn_button_down() -> void:
 	
 	if is_success:
 		global.announce_status("Welcome back, " + username + "!") # Displays a message in the status bar
+		global.set_username(username)
+		global.game_over = false
+		
+		# Load the questions
+		question_manager.reset_runtime()
+		
+		# Load the scene
+		global.change_scene("res://scenes/levels/level_manager.tscn")
 		login.hide()
 	else:
 		global.announce_status("Incorrect username or password!") # Displays a message in the status bar

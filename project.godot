@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="learn-to-code"
-run/main_scene="res://scenes/game.tscn"
+run/main_scene="uid://bdn8nxiyr27w7"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -21,6 +21,7 @@ Music="*res://scenes/music.tscn"
 global="*res://scripts/global.gd"
 question_manager="*res://scripts/managers/question_manager.gd"
 FadeLayer="*res://scenes/utilities/fade_layer.tscn"
+Settings="*res://scenes/utilities/settings.tscn"
 
 [input]
 

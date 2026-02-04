@@ -25,3 +25,6 @@ func _on_identification_submitted(answer: String) -> void:
 	else:
 		global.announce_status("WRONG")
 		global.reduce_life()
+	
+	global.num_of_submit += 1
+	global.is_finished_level()

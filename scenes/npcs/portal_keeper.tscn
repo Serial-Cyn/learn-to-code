@@ -89,16 +89,16 @@ offset_bottom = -7.0
 secret = true
 
 [node name="LoginBtn" type="Button" parent="Login/CameraWindow"]
-offset_left = -140.0
+offset_left = 40.0
 offset_top = 40.0
-offset_right = -40.0
+offset_right = 140.0
 offset_bottom = 71.0
 text = "Let's go!"
 
 [node name="CloseBtn" type="Button" parent="Login/CameraWindow"]
-offset_left = 40.0
+offset_left = -142.0
 offset_top = 40.0
-offset_right = 140.0
+offset_right = -42.0
 offset_bottom = 71.0
 text = "Not now"
 
