@@ -5,6 +5,7 @@ var database: SQLite
 var is_connected: bool = false
 
 # PLAYER
+var avatar: String = "miyuki"
 var life: int = 3
 var player_id: int = -1
 var username: String = "Unknown"
@@ -340,20 +341,48 @@ func change_scene(scene_path: String):
 	get_tree().change_scene_to_file(scene_path)
 	FadeLayer.fade_in()
 
+func export_scores_to_csv() -> void:
+	var file_path := "user://grades_export.csv"
+	var file := FileAccess.open(file_path, FileAccess.WRITE)
+
+	if file == null:
+		push_error("Failed to create CSV file")
+		return
+
+	# CSV Header
+	file.store_line("Username,Score,Grade")
+
+	# Pull ALL rows from database
+	var rows: Array = database.select_rows("tbl_scores", "", ["*"])
+	# Expected row format:
+	# { "username": String, "score": int, "grade": String }
+
+	for row in rows:
+		var line := "%s,%s,%s" % [
+			str(row["username"]),
+			str(row["score"]),
+			str(row["grade"])
+		]
+		file.store_line(line)
+
+	file.close()
+
 func trigger_game_over():
 	if game_over:
 		return
-	
+
 	grade = calculate_grade(score)
-	
+
 	var data: Dictionary = {
 		"username": username,
 		"score": score,
 		"grade": grade
 	}
-	
-	var result: bool = database.insert_row("tbl_scores", data) # Inserts into the table
-	
+
+	database.insert_row("tbl_scores", data)
+
+	export_scores_to_csv()
+
 	game_over = true
 	change_scene("res://scenes/levels/start_floor.tscn")
 
@@ -375,3 +404,9 @@ func get_floor_count() -> Array:
 
 func get_max_time() -> int:
 	return max_time
+
+func set_avatar(name: String) -> void:
+	avatar = name
+
+func get_avatar() -> String:
+	return avatar

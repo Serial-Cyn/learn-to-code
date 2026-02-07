@@ -2,10 +2,13 @@ extends Area2D
 
 @export var book_name: String = "(>_<)"
 @export var description: String = "I don't know what to say..."
-@export var sprite: SpriteFrames
+@export var row: int = 0
+@export var col: int = 0
 
-@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite
+@onready var sprite: Sprite2D = $Sprite
 @onready var label: Label = $Name
+
+const ICON_SIZE: int = 16
 
 var in_interaction_zone: bool = false
 
@@ -17,8 +20,7 @@ func _ready() -> void:
 	if get_tree().get_first_node_in_group("ui"):
 		dialog_ui = get_tree().get_first_node_in_group("ui")
 	
-	if sprite != null:
-		animated_sprite.sprite_frames = sprite
+	sprite.region_rect = Rect2(row * ICON_SIZE, col * ICON_SIZE, ICON_SIZE, ICON_SIZE)
 
 func _process(delta: float) -> void:
 	if not in_interaction_zone:

@@ -3,8 +3,9 @@ extends Area2D
 signal submitted(correct: bool)
 
 @onready var instruction_label: Label = $InstructionLabel
+@onready var sprite: AnimatedSprite2D = $Sprite
 
-@export var submit_hold_time := 0.6 # seconds required to submit
+@export var submit_hold_time := 1.0 # seconds required to submit
 
 var hold_timer := 0.0
 var is_holding := false
@@ -15,6 +16,9 @@ var expected_answers: Array = []
 
 var is_in_interaction_zone := false
 var can_submit := false
+
+func _ready() -> void:
+	sprite.play("default")
 
 func _process(delta: float) -> void:
 	instruction_label.visible = false # default state
@@ -45,7 +49,7 @@ func _process(delta: float) -> void:
 		is_holding = true
 		hold_timer += delta
 
-		var hold_progress := hold_timer / submit_hold_time
+		hold_progress = hold_timer / submit_hold_time
 		instruction_label.modulate = Color(1, 1 - hold_progress, 1 - hold_progress)
 		instruction_label.text = "Submitting: " + str(int(hold_progress * 100)) + "%"
 
@@ -59,16 +63,19 @@ func _process(delta: float) -> void:
 
 func submit_answers() -> void:
 	if collected_answers.size() != expected_answers.size():
+		sprite.play("wrong")
 		submitted.emit(false)
 		can_submit = false
 		return
 
 	for answer in collected_answers:
 		if answer not in expected_answers:
+			sprite.play("wrong")
 			submitted.emit(false)
 			can_submit = false
 			return
 
+	sprite.play("correct")
 	submitted.emit(true)
 	can_submit = false
 	

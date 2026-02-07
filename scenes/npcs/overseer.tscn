@@ -1,40 +1,26 @@
-[gd_scene load_steps=11 format=3 uid="uid://2x5fgvnx5kux"]
+[gd_scene load_steps=9 format=3 uid="uid://2x5fgvnx5kux"]
 
 [ext_resource type="Script" uid="uid://13jwthu0kg5a" path="res://scripts/npc_scripts/overseer.gd" id="1_rk8j3"]
-[ext_resource type="Texture2D" uid="uid://dqxaypwrlmq1e" path="res://assets/sprites/knight.png" id="2_dhnir"]
+[ext_resource type="Texture2D" uid="uid://bls5ltg6p4a0" path="res://assets/sprites/overseer.png" id="2_dhnir"]
 [ext_resource type="FontFile" uid="uid://c0bgh10idc3tl" path="res://assets/fonts/PixelOperator8.ttf" id="3_4d22p"]
 [ext_resource type="FontFile" uid="uid://dgcs33ctyhfl4" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="4_dhnir"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gf5gu"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_4d22p"]
 atlas = ExtResource("2_dhnir")
-region = Rect2(0, 0, 32, 32)
+region = Rect2(0, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_igoej"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_tscq6"]
 atlas = ExtResource("2_dhnir")
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0cxkk"]
-atlas = ExtResource("2_dhnir")
-region = Rect2(64, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xjtwp"]
-atlas = ExtResource("2_dhnir")
-region = Rect2(96, 0, 32, 32)
+region = Rect2(24, 0, 24, 24)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_tscq6"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_gf5gu")
+"texture": SubResource("AtlasTexture_4d22p")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_igoej")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0cxkk")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xjtwp")
+"texture": SubResource("AtlasTexture_tscq6")
 }],
 "loop": true,
 "name": &"default",
@@ -52,6 +38,7 @@ script = ExtResource("1_rk8j3")
 position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_tscq6")
 autoplay = "default"
+frame_progress = 0.30442235
 
 [node name="InteractionZone" type="CollisionShape2D" parent="."]
 position = Vector2(0, -10)
@@ -115,6 +102,7 @@ offset_left = 40.0
 offset_top = 40.0
 offset_right = 140.0
 offset_bottom = 71.0
+theme_override_fonts/font = ExtResource("3_4d22p")
 text = "Register"
 
 [node name="CloseBtn" type="Button" parent="Registration/CameraWindow"]
@@ -122,6 +110,7 @@ offset_left = -143.0
 offset_top = 40.0
 offset_right = -43.0
 offset_bottom = 71.0
+theme_override_fonts/font = ExtResource("3_4d22p")
 text = "Not now"
 
 [node name="ShowPasswordBtn" type="Button" parent="Registration/CameraWindow"]

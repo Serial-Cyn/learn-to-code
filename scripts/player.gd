@@ -8,8 +8,11 @@ const PIXEL_OPERATOR_8 = preload("uid://c0bgh10idc3tl")
 const SPEED: float = 130.0
 const JUMP_VELOCITY: float = -300.0
 
+var avatar: String = "miyuki"
+
 func _enter_tree() -> void:
 	global.player = self
+	avatar = global.get_avatar()
 
 func _physics_process(delta: float) -> void:
 	# Get the input direction: -1, 0, 1
@@ -47,15 +50,15 @@ func handle_animation(direction: int):
 		sprite.flip_h = false
 	elif direction < 0:
 		sprite.flip_h = true
-		
+	
 	# Play animations
 	if is_on_floor():
 		if direction == 0:
-			sprite.play("idle")
+			sprite.play(avatar + "_idle")
 		else:
-			sprite.play("run")
+			sprite.play(avatar + "_run")
 	else:
-		sprite.play("jump")
+		sprite.play(avatar + "_jump")
 		
 func handle_movement(direction: int):
 	if direction:

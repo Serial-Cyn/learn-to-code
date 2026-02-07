@@ -1,9 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://cyybsasga6txj"]
 
 [ext_resource type="Script" uid="uid://c6fdj0316t8yq" path="res://scripts/utility_scripts/book.gd" id="1_4jnmo"]
+[ext_resource type="Texture2D" uid="uid://b0kaxv40rjbe5" path="res://assets/sprites/tools.png" id="2_iv6mk"]
 [ext_resource type="FontFile" uid="uid://c0bgh10idc3tl" path="res://assets/fonts/PixelOperator8.ttf" id="2_v2een"]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_v2een"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_84k18"]
 
@@ -11,19 +10,21 @@
 collision_mask = 2
 script = ExtResource("1_4jnmo")
 
-[node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -10)
-sprite_frames = SubResource("SpriteFrames_v2een")
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(0, -18)
+texture = ExtResource("2_iv6mk")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
 
 [node name="InteractionZone" type="CollisionShape2D" parent="."]
-position = Vector2(0, -10)
+position = Vector2(0, -20)
 shape = SubResource("RectangleShape2D_84k18")
 
 [node name="Name" type="Label" parent="."]
 offset_left = -20.0
-offset_top = -50.0
+offset_top = -60.0
 offset_right = 20.0
-offset_bottom = -20.0
+offset_bottom = -30.0
 theme_override_fonts/font = ExtResource("2_v2een")
 theme_override_font_sizes/font_size = 8
 text = "(>_<)"

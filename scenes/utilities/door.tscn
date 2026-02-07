@@ -1,58 +1,83 @@
-[gd_scene load_steps=10 format=3 uid="uid://cydfaqpcw5b2i"]
+[gd_scene load_steps=15 format=3 uid="uid://cydfaqpcw5b2i"]
 
-[ext_resource type="Texture2D" uid="uid://bpcb04pgagmpn" path="res://assets/sprites/fruit.png" id="1_nwlc6"]
 [ext_resource type="Script" uid="uid://du6jcrgfm2ij" path="res://scripts/utility_scripts/door.gd" id="1_phpmq"]
+[ext_resource type="Texture2D" uid="uid://bpfk2tendcfg5" path="res://assets/sprites/button.png" id="2_7gb1t"]
 [ext_resource type="FontFile" uid="uid://c0bgh10idc3tl" path="res://assets/fonts/PixelOperator8.ttf" id="3_w1als"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_phpmq"]
-atlas = ExtResource("1_nwlc6")
-region = Rect2(0, 48, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_22piq"]
+atlas = ExtResource("2_7gb1t")
+region = Rect2(0, 0, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w1als"]
-atlas = ExtResource("1_nwlc6")
-region = Rect2(0, 0, 16, 16)
+atlas = ExtResource("2_7gb1t")
+region = Rect2(0, 24, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7gb1t"]
-atlas = ExtResource("1_nwlc6")
-region = Rect2(32, 0, 16, 16)
+atlas = ExtResource("2_7gb1t")
+region = Rect2(24, 24, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dvdut"]
-atlas = ExtResource("1_nwlc6")
-region = Rect2(32, 48, 16, 16)
+atlas = ExtResource("2_7gb1t")
+region = Rect2(48, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0qk0w"]
+atlas = ExtResource("2_7gb1t")
+region = Rect2(72, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sayuv"]
+atlas = ExtResource("2_7gb1t")
+region = Rect2(96, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nnpoa"]
+atlas = ExtResource("2_7gb1t")
+region = Rect2(120, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1qufn"]
+atlas = ExtResource("2_7gb1t")
+region = Rect2(144, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a8ao0"]
+atlas = ExtResource("2_7gb1t")
+region = Rect2(168, 24, 24, 24)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_22piq"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_phpmq")
+"texture": SubResource("AtlasTexture_22piq")
 }],
 "loop": true,
-"name": &"close_f",
+"name": &"close",
 "speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_w1als")
-}],
-"loop": true,
-"name": &"close_t",
-"speed": 5.0
 }, {
-"frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_7gb1t")
-}],
-"loop": true,
-"name": &"open_f",
-"speed": 5.0
 }, {
-"frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_dvdut")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0qk0w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sayuv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nnpoa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1qufn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a8ao0")
 }],
-"loop": true,
-"name": &"open_t",
-"speed": 5.0
+"loop": false,
+"name": &"open",
+"speed": 15.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_smhdk"]
@@ -62,10 +87,10 @@ collision_mask = 2
 script = ExtResource("1_phpmq")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -8)
+position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_22piq")
-animation = &"close_f"
-autoplay = "close_t"
+animation = &"open"
+autoplay = "close"
 
 [node name="InteractionZone" type="CollisionShape2D" parent="."]
 position = Vector2(0, -10)
@@ -85,3 +110,4 @@ autowrap_mode = 2
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="animation_finished" from="Sprite" to="." method="_on_sprite_animation_finished"]

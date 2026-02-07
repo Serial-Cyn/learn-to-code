@@ -1,44 +1,37 @@
-[gd_scene load_steps=11 format=3 uid="uid://b2no1bnroh6lu"]
+[gd_scene load_steps=10 format=3 uid="uid://b2no1bnroh6lu"]
 
 [ext_resource type="Script" uid="uid://dg41lq2aqismo" path="res://scripts/npc_scripts/examiner.gd" id="1_b8g66"]
-[ext_resource type="Texture2D" uid="uid://dqxaypwrlmq1e" path="res://assets/sprites/knight.png" id="2_ayamd"]
+[ext_resource type="Texture2D" uid="uid://def8c101j44ti" path="res://assets/sprites/examiner.png" id="2_ayamd"]
 [ext_resource type="FontFile" uid="uid://c0bgh10idc3tl" path="res://assets/fonts/PixelOperator8.ttf" id="3_2cidx"]
 [ext_resource type="FontFile" uid="uid://dgcs33ctyhfl4" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="4_ayamd"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gf5gu"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_2cidx"]
 atlas = ExtResource("2_ayamd")
-region = Rect2(0, 0, 32, 32)
+region = Rect2(0, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_igoej"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_qv6ae"]
 atlas = ExtResource("2_ayamd")
-region = Rect2(32, 0, 32, 32)
+region = Rect2(24, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_0cxkk"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_dwg2a"]
 atlas = ExtResource("2_ayamd")
-region = Rect2(64, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xjtwp"]
-atlas = ExtResource("2_ayamd")
-region = Rect2(96, 0, 32, 32)
+region = Rect2(48, 0, 24, 24)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ywvjc"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_gf5gu")
+"texture": SubResource("AtlasTexture_2cidx")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_igoej")
+"texture": SubResource("AtlasTexture_qv6ae")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0cxkk")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xjtwp")
+"texture": SubResource("AtlasTexture_dwg2a")
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 2.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aggmx"]
@@ -72,7 +65,6 @@ oversampling_override = 1.0
 title = "Restricted Section"
 initial_position = 1
 size = Vector2i(400, 200)
-visible = false
 unresizable = true
 popup_window = true
 minimize_disabled = true
@@ -116,6 +108,7 @@ offset_left = 43.0
 offset_top = 40.0
 offset_right = 143.0
 offset_bottom = 71.0
+theme_override_fonts/font = ExtResource("3_2cidx")
 text = "Login"
 
 [node name="CloseBtn" type="Button" parent="Admin/CameraWindow"]
@@ -123,6 +116,7 @@ offset_left = -140.0
 offset_top = 40.0
 offset_right = -40.0
 offset_bottom = 71.0
+theme_override_fonts/font = ExtResource("3_2cidx")
 text = "Close"
 
 [node name="ShowPasswordBtn" type="Button" parent="Admin/CameraWindow"]
@@ -314,6 +308,7 @@ offset_left = 103.0
 offset_top = 137.0
 offset_right = 203.0
 offset_bottom = 168.0
+theme_override_fonts/font = ExtResource("3_2cidx")
 text = "Submit"
 
 [node name="MCBackBtn" type="Button" parent="MultipleChoiceWindow/CameraWindow"]
@@ -321,6 +316,7 @@ offset_left = -192.0
 offset_top = 137.0
 offset_right = -92.0
 offset_bottom = 168.0
+theme_override_fonts/font = ExtResource("3_2cidx")
 text = "Go Back"
 
 [node name="TrueOrFalseWindow" type="Window" parent="."]
@@ -378,6 +374,7 @@ offset_left = 68.0
 offset_top = 87.0
 offset_right = 168.0
 offset_bottom = 118.0
+theme_override_fonts/font = ExtResource("3_2cidx")
 text = "Submit"
 
 [node name="TFBackBtn" type="Button" parent="TrueOrFalseWindow/CameraWindow"]
@@ -385,6 +382,7 @@ offset_left = -193.0
 offset_top = 87.0
 offset_right = -93.0
 offset_bottom = 118.0
+theme_override_fonts/font = ExtResource("3_2cidx")
 text = "Go Back"
 
 [node name="IdentificationWindow" type="Window" parent="."]
@@ -436,6 +434,7 @@ offset_left = 80.0
 offset_top = 79.0
 offset_right = 180.0
 offset_bottom = 110.0
+theme_override_fonts/font = ExtResource("3_2cidx")
 text = "Submit"
 
 [node name="IBackBtn" type="Button" parent="IdentificationWindow/CameraWindow"]
@@ -443,6 +442,7 @@ offset_left = -193.0
 offset_top = 79.0
 offset_right = -93.0
 offset_bottom = 110.0
+theme_override_fonts/font = ExtResource("3_2cidx")
 text = "Go Back"
 
 [node name="EnumerationWindow" type="Window" parent="."]
@@ -458,50 +458,52 @@ maximize_disabled = true
 theme_override_fonts/title_font = ExtResource("4_ayamd")
 
 [node name="CameraWindow" type="Camera2D" parent="EnumerationWindow"]
-position = Vector2(250, 250)
+position = Vector2(250, 200)
 
 [node name="QuestionLabel" type="Label" parent="EnumerationWindow/CameraWindow"]
 offset_left = -215.0
-offset_top = -213.0
+offset_top = -174.0
 offset_right = -109.0
-offset_bottom = -190.0
+offset_bottom = -151.0
 theme_override_fonts/font = ExtResource("3_2cidx")
 text = "Question"
 
 [node name="ItemsLabel" type="Label" parent="EnumerationWindow/CameraWindow"]
 offset_left = -217.0
-offset_top = -130.0
+offset_top = -91.0
 offset_right = -101.0
-offset_bottom = -107.0
+offset_bottom = -68.0
 theme_override_fonts/font = ExtResource("3_2cidx")
 text = "Answers"
 
 [node name="QuestionField" type="LineEdit" parent="EnumerationWindow/CameraWindow"]
 offset_left = -215.0
-offset_top = -183.0
+offset_top = -144.0
 offset_right = 205.0
-offset_bottom = -151.0
+offset_bottom = -112.0
 theme_override_fonts/font = ExtResource("3_2cidx")
 
 [node name="ItemsField" type="TextEdit" parent="EnumerationWindow/CameraWindow"]
 offset_left = -215.0
-offset_top = -99.0
+offset_top = -60.0
 offset_right = 205.0
-offset_bottom = 51.0
+offset_bottom = 90.0
 theme_override_fonts/font = ExtResource("3_2cidx")
 
 [node name="ESubmitBtn" type="Button" parent="EnumerationWindow/CameraWindow"]
 offset_left = 89.0
-offset_top = 90.0
+offset_top = 129.0
 offset_right = 189.0
-offset_bottom = 121.0
+offset_bottom = 160.0
+theme_override_fonts/font = ExtResource("3_2cidx")
 text = "Submit"
 
 [node name="EBackBtn" type="Button" parent="EnumerationWindow/CameraWindow"]
 offset_left = -200.0
-offset_top = 90.0
+offset_top = 129.0
 offset_right = -100.0
-offset_bottom = 121.0
+offset_bottom = 160.0
+theme_override_fonts/font = ExtResource("3_2cidx")
 text = "Go Back"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

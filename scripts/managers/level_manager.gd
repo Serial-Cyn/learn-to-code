@@ -90,7 +90,7 @@ func _update_chunks() -> void:
 
 	# Destroy only the chunk that is too far behind
 	var destroy_index := current_chunk_index - 2
-	_delete_chunk(destroy_index)
+	# _delete_chunk(destroy_index)
 
 func _delete_chunk(index: int) -> void:
 	if not active_chunks.has(index):

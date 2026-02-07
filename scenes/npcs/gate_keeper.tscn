@@ -1,43 +1,29 @@
-[gd_scene load_steps=10 format=3 uid="uid://cnhbirsa5bdea"]
+[gd_scene load_steps=8 format=3 uid="uid://cnhbirsa5bdea"]
 
-[ext_resource type="Texture2D" uid="uid://dqxaypwrlmq1e" path="res://assets/sprites/knight.png" id="1_gf5gu"]
 [ext_resource type="Script" uid="uid://bbr0j6mx5kamm" path="res://scripts/npc_scripts/gate_keeper.gd" id="1_igoej"]
+[ext_resource type="Texture2D" uid="uid://blc4oq47cj7k4" path="res://assets/sprites/gate_keeper.png" id="2_w5ggw"]
 [ext_resource type="FontFile" uid="uid://c0bgh10idc3tl" path="res://assets/fonts/PixelOperator8.ttf" id="3_0cxkk"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gf5gu"]
-atlas = ExtResource("1_gf5gu")
-region = Rect2(0, 0, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_h544t"]
+atlas = ExtResource("2_w5ggw")
+region = Rect2(0, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_igoej"]
-atlas = ExtResource("1_gf5gu")
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0cxkk"]
-atlas = ExtResource("1_gf5gu")
-region = Rect2(64, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xjtwp"]
-atlas = ExtResource("1_gf5gu")
-region = Rect2(96, 0, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_negsp"]
+atlas = ExtResource("2_w5ggw")
+region = Rect2(24, 0, 24, 24)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2mleh"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_gf5gu")
+"texture": SubResource("AtlasTexture_h544t")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_igoej")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0cxkk")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xjtwp")
+"texture": SubResource("AtlasTexture_negsp")
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 3.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nhxyu"]

@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://dckxu7xkk2vpe"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1hb8p"]
+size = Vector2(56, 8)
+
+[node name="Barrier" type="StaticBody2D"]
+
+[node name="Blocker" type="CollisionShape2D" parent="."]
+position = Vector2(0, -28)
+rotation = 1.5707964
+shape = SubResource("RectangleShape2D_1hb8p")
+one_way_collision = true

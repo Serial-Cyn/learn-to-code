@@ -1,19 +1,26 @@
-[gd_scene load_steps=8 format=3 uid="uid://lt7qkn4ceagl"]
+[gd_scene load_steps=9 format=3 uid="uid://lt7qkn4ceagl"]
 
-[ext_resource type="Texture2D" uid="uid://dqxaypwrlmq1e" path="res://assets/sprites/knight.png" id="1_0ewr0"]
 [ext_resource type="Script" uid="uid://bex0hy5j45suq" path="res://scripts/npc_scripts/portal_keeper.gd" id="1_ardn6"]
 [ext_resource type="FontFile" uid="uid://c0bgh10idc3tl" path="res://assets/fonts/PixelOperator8.ttf" id="1_c60qd"]
+[ext_resource type="Texture2D" uid="uid://blc4oq47cj7k4" path="res://assets/sprites/gate_keeper.png" id="2_odsli"]
 [ext_resource type="FontFile" uid="uid://dgcs33ctyhfl4" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="4_odsli"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ardn6"]
-atlas = ExtResource("1_0ewr0")
-region = Rect2(96, 224, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_jqkbq"]
+atlas = ExtResource("2_odsli")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ikpg"]
+atlas = ExtResource("2_odsli")
+region = Rect2(24, 0, 24, 24)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_p78sk"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ardn6")
+"texture": SubResource("AtlasTexture_jqkbq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ikpg")
 }],
 "loop": true,
 "name": &"default",
@@ -93,6 +100,7 @@ offset_left = 40.0
 offset_top = 40.0
 offset_right = 140.0
 offset_bottom = 71.0
+theme_override_fonts/font = ExtResource("1_c60qd")
 text = "Let's go!"
 
 [node name="CloseBtn" type="Button" parent="Login/CameraWindow"]
@@ -100,6 +108,7 @@ offset_left = -142.0
 offset_top = 40.0
 offset_right = -42.0
 offset_bottom = 71.0
+theme_override_fonts/font = ExtResource("1_c60qd")
 text = "Not now"
 
 [node name="ShowPasswordBtn" type="Button" parent="Login/CameraWindow"]

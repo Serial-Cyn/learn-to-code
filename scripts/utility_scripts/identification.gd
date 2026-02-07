@@ -3,6 +3,7 @@ extends Area2D
 @onready var answer_sheet: Window = $AnswerSheet
 @onready var answer_field: LineEdit = $AnswerSheet/CameraWindow/AnswerField
 @onready var choice_name: Label = $ChoiceName
+@onready var sprite: AnimatedSprite2D = $Sprite
 
 signal submitted(answer: String)
 
@@ -11,6 +12,7 @@ var is_interacted: bool = false
 var answer: String
 
 func _ready() -> void:
+	sprite.play("default")
 	choice_name.visible = false
 	answer_sheet.hide()
 
@@ -49,3 +51,9 @@ func _on_close_btn_button_down() -> void:
 func _on_answer_sheet_close_requested() -> void:
 	global.can_move = true
 	answer_sheet.hide()
+
+func correct() -> void:
+	sprite.play("correct")
+
+func wrong() -> void:
+	sprite.play("wrong")

@@ -1,44 +1,59 @@
-[gd_scene load_steps=14 format=3 uid="uid://dw06e80tgt6ml"]
+[gd_scene load_steps=15 format=3 uid="uid://dw06e80tgt6ml"]
 
-[ext_resource type="Texture2D" uid="uid://dg7x0ggj8is6e" path="res://assets/sprites/slime_green.png" id="1_2tlox"]
 [ext_resource type="Script" uid="uid://dsh8nqtws2pwx" path="res://scripts/utility_scripts/choice.gd" id="1_ycl7j"]
+[ext_resource type="Texture2D" uid="uid://bpfk2tendcfg5" path="res://assets/sprites/button.png" id="2_1dw54"]
 [ext_resource type="FontFile" uid="uid://c0bgh10idc3tl" path="res://assets/fonts/PixelOperator8.ttf" id="3_1dw54"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gtn81"]
-atlas = ExtResource("1_2tlox")
+[sub_resource type="AtlasTexture" id="AtlasTexture_1xn1c"]
+atlas = ExtResource("2_1dw54")
 region = Rect2(0, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_f4b5b"]
-atlas = ExtResource("1_2tlox")
-region = Rect2(24, 0, 24, 24)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_w22yr"]
-atlas = ExtResource("1_2tlox")
-region = Rect2(48, 0, 24, 24)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_s082v"]
-atlas = ExtResource("1_2tlox")
-region = Rect2(72, 0, 24, 24)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ycl7j"]
-atlas = ExtResource("1_2tlox")
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ythh"]
+atlas = ExtResource("2_1dw54")
 region = Rect2(0, 24, 24, 24)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1dw54"]
-atlas = ExtResource("1_2tlox")
+[sub_resource type="AtlasTexture" id="AtlasTexture_gtn81"]
+atlas = ExtResource("2_1dw54")
 region = Rect2(24, 24, 24, 24)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1xn1c"]
-atlas = ExtResource("1_2tlox")
+[sub_resource type="AtlasTexture" id="AtlasTexture_f4b5b"]
+atlas = ExtResource("2_1dw54")
 region = Rect2(48, 24, 24, 24)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_8ythh"]
-atlas = ExtResource("1_2tlox")
+[sub_resource type="AtlasTexture" id="AtlasTexture_w22yr"]
+atlas = ExtResource("2_1dw54")
 region = Rect2(72, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s082v"]
+atlas = ExtResource("2_1dw54")
+region = Rect2(96, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1kkbl"]
+atlas = ExtResource("2_1dw54")
+region = Rect2(120, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dd5kj"]
+atlas = ExtResource("2_1dw54")
+region = Rect2(144, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3fje2"]
+atlas = ExtResource("2_1dw54")
+region = Rect2(168, 24, 24, 24)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_gtn81"]
 animations = [{
 "frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1xn1c")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ythh")
+}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_gtn81")
 }, {
@@ -50,27 +65,19 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_s082v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1kkbl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dd5kj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3fje2")
 }],
-"loop": true,
-"name": &"hover",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ycl7j")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1dw54")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1xn1c")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8ythh")
-}],
-"loop": true,
-"name": &"idle",
-"speed": 5.0
+"loop": false,
+"name": &"pressed",
+"speed": 15.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2tlox"]
@@ -82,7 +89,7 @@ script = ExtResource("1_ycl7j")
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_gtn81")
-animation = &"hover"
+animation = &"pressed"
 autoplay = "idle"
 
 [node name="InteractionZone" type="CollisionShape2D" parent="."]
@@ -103,3 +110,4 @@ autowrap_mode = 2
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="animation_finished" from="Sprite" to="." method="_on_sprite_animation_finished"]

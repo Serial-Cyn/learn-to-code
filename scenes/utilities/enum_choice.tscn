@@ -1,18 +1,18 @@
 [gd_scene load_steps=7 format=3 uid="uid://cq7mqkkkvu36n"]
 
 [ext_resource type="Script" uid="uid://bh84022k83a8d" path="res://scripts/utility_scripts/enum_choice.gd" id="1_1qcd1"]
-[ext_resource type="Texture2D" uid="uid://bpcb04pgagmpn" path="res://assets/sprites/fruit.png" id="1_y56l8"]
+[ext_resource type="Texture2D" uid="uid://cjlq86gmruhol" path="res://assets/sprites/collector.png" id="2_qdfdj"]
 [ext_resource type="FontFile" uid="uid://c0bgh10idc3tl" path="res://assets/fonts/PixelOperator8.ttf" id="3_qdfdj"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1qcd1"]
-atlas = ExtResource("1_y56l8")
-region = Rect2(16, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_t6oja"]
+atlas = ExtResource("2_qdfdj")
+region = Rect2(0, 72, 24, 24)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_qdfdj"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_1qcd1")
+"texture": SubResource("AtlasTexture_t6oja")
 }],
 "loop": true,
 "name": &"default",
@@ -20,7 +20,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y56l8"]
-size = Vector2(6, 20)
+size = Vector2(12, 20)
 
 [node name="EnumChoice" type="Area2D"]
 collision_layer = 4
@@ -28,7 +28,7 @@ collision_mask = 2
 script = ExtResource("1_1qcd1")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -8)
+position = Vector2(0, -9)
 sprite_frames = SubResource("SpriteFrames_qdfdj")
 autoplay = "default"
 
